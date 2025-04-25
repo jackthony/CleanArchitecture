@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CA_InterfaceAdapter_Repository
 {
-    public class Repository : IRepository<Beer>
+    public class Repository
     {
         private readonly AppDbContext _dbContext;
 
@@ -25,6 +25,16 @@ namespace CA_InterfaceAdapter_Repository
             };
             await _dbContext.Beers.AddAsync(beerModel);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistsAsync(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Beer>> GetAllAsync()
@@ -50,5 +60,11 @@ namespace CA_InterfaceAdapter_Repository
                 Alcohol = beerModel.Alcohol
             };
         }
+
+        public Task UpdateAsync(Beer entity)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

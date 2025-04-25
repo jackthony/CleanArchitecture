@@ -10,10 +10,12 @@ namespace CA_InterfaceAdapters_Data
         { }
 
         public DbSet<BeerModel> Beers { get; set; }
+        public DbSet<EMP_EmpresaModel> Empresas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BeerModel>().ToTable("Beer");
+            modelBuilder.Entity<EMP_EmpresaModel>().ToTable("EMP_Empresa");
         }
     }
 }

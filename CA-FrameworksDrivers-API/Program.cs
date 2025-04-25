@@ -13,6 +13,12 @@ using FluentValidation.AspNetCore;
 using CA_FrameworkDrivers_ExternalService;
 using CA_InterfaceAdapters_Adapters.Dtos;
 using CA_InterfaceAdapters_Adapters;
+using CA_ApplicationLayer.EMP_Empresa;
+using CA_InterfaceAdapters_Models;
+using CA_InterfaceAdapters_Mappers.Contracts;
+using CA_FrameworksDrivers_API.Endpoints;
+using CA_FrameworksDrivers_API.Services;
+using CA_FrameworksDrivers_API.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +41,18 @@ builder.Services.AddDbContext<AppDbContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); 
     }
 );
-builder.Services.AddScoped<IRepository<Beer>, Repository>();
+
+builder.Services.Configure<TimeZoneSettings>(builder.Configuration.GetSection(TimeZoneSettings.SectionName));
+builder.Services.AddSingleton<ITimeZoneInfoProvider, TimeZoneInfoProvider>();
+
+builder.Services.AddScoped(typeof(ILstPresenterResponse<,>), typeof(LstItemResponsePresenter<,>));
+builder.Services.AddScoped(typeof(IPresenterResponse<,>), typeof(ItemResponsePresenter<,>));
+builder.Services.AddScoped(typeof(ILstPagPresenterResponse<,>), typeof(LstItemPaginationResponsePresenter<,>));
+
+builder.Services.AddEMP_EmpresaServices();
+
+
+//builder.Services.AddScoped<IRepository<Beer>, Repository>();
 builder.Services.AddScoped<IPresenter<Beer, BeerViewModel>, BeerPresenter>();
 builder.Services.AddScoped<IPresenter<Beer, BeerDetailViewModel>, BeerDetailPresenter>();
 builder.Services.AddScoped<IMapper<BeerRequestDTO, Beer>, BeerMapper>();
@@ -45,6 +62,8 @@ builder.Services.AddScoped<GetBeerUseCase<Beer, BeerViewModel>>();
 builder.Services.AddScoped<GetBeerUseCase<Beer, BeerDetailViewModel>>();
 builder.Services.AddScoped<AddBeerUseCase<BeerRequestDTO>>();
 builder.Services.AddScoped<GetPostUseCase>();
+
+
 
 var app = builder.Build();
 
@@ -59,48 +78,39 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-app.MapGet("/beer", async (GetBeerUseCase<Beer, BeerViewModel> beerUseCase) => 
-{
-    return await beerUseCase.ExecuteAsync();
-})
-.WithName("beers")
-.WithOpenApi();
+//app.MapGet("/beer", async (GetBeerUseCase<Beer, BeerViewModel> beerUseCase) => 
+//{
+//    return await beerUseCase.ExecuteAsync();
+//})
+//.WithName("beers")
+//.WithOpenApi();
 
-app.MapPost("/beer", async (BeerRequestDTO beerRequest, AddBeerUseCase<BeerRequestDTO> beerUseCase,
-    IValidator<BeerRequestDTO> validator) =>
-{
-    var result = await validator.ValidateAsync(beerRequest);
-    
-    await beerUseCase.ExecuteAsync(beerRequest);
+//app.MapPost("/beer", async (BeerRequestDTO beerRequest, AddBeerUseCase<BeerRequestDTO> beerUseCase,
+//    IValidator<BeerRequestDTO> validator) =>
+//{
+//    var result = await validator.ValidateAsync(beerRequest);
 
-    if (!result.IsValid)
-    {
-        return Results.ValidationProblem(result.ToDictionary());
-    }
-    await beerUseCase.ExecuteAsync(beerRequest);
-    return Results.Created();
+//    await beerUseCase.ExecuteAsync(beerRequest);
 
-})
-.WithName("add-beer")
-.WithOpenApi();
+//    if (!result.IsValid)
+//    {
+//        return Results.ValidationProblem(result.ToDictionary());
+//    }
+//    await beerUseCase.ExecuteAsync(beerRequest);
+//    return Results.Created();
 
-app.MapGet("/beerDetail", async (GetBeerUseCase<Beer, BeerDetailViewModel> beerUseCase) =>
-{
-    return await beerUseCase.ExecuteAsync();
-})
-    .WithName("beerDetail")
-    .WithOpenApi();
+//})
+//.WithName("add-beer")
+//.WithOpenApi();
 
+//app.MapGet("/beerDetail", async (GetBeerUseCase<Beer, BeerDetailViewModel> beerUseCase) =>
+//{
+//    return await beerUseCase.ExecuteAsync();
+//})
+//    .WithName("beerDetail")
+//    .WithOpenApi();
 
-
-app.MapGet("/posts", async (GetPostUseCase getPostUseCase) =>
-{
-    return await getPostUseCase.ExecuteAsync();
-})
-    .WithName("posts")
-    .WithOpenApi();
-
-
+app.MapEmpEmpresasEndpoints();
 
 app.Run();
 

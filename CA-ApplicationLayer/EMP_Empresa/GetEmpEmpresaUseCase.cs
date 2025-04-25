@@ -1,0 +1,43 @@
+﻿using CA_EntrerpriseLayer;
+using CA_InterfaceAdapters_Models;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CA_ApplicationLayer.EMP_Empresa
+{
+    public class GetEmpEmpresaUseCase<TOutput>
+    {
+        private readonly IEmp_EmpresaRepository _empEmpresaRepository;
+        private readonly ILstPagPresenterResponse<EMP_EmpresaModel, TOutput> _presenterResponse;
+
+        public GetEmpEmpresaUseCase(IEmp_EmpresaRepository empEmpresaRepository, ILstPagPresenterResponse<EMP_EmpresaModel, TOutput> presenterResponse)
+        {
+            _empEmpresaRepository = empEmpresaRepository;
+            _presenterResponse = presenterResponse;
+        }
+
+        public async Task<IResult> ExecuteAsync(int pageIndex, int pageSize, string? paramSearch)
+        {
+            try
+            {
+                var empresas = await _empEmpresaRepository.GetAllAsyncPagination(pageIndex, pageSize, paramSearch);
+                var response = _presenterResponse.Present(empresas);
+
+                return Results.Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var errorResponse = new
+                {
+                    IsSuccess = false,
+                    Errors = new List<string> { ex.Message }
+                };
+                return Results.BadRequest(errorResponse);
+            }
+        }
+    }
+}
