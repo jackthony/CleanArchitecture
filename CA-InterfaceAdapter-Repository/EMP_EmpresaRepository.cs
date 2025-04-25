@@ -52,9 +52,6 @@ namespace CA_InterfaceAdapter_Repository
         }
         public async Task<bool> UpdateAsync(EMP_EmpresaEntity entity)
         {
-            TimeZoneInfo peruTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
-            DateTime peruDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, peruTimeZone);
-
             var empresaModel = await _dbContext.Empresas.FirstOrDefaultAsync(e => e.nIdEmpresa == entity.nIdEmpresa);
 
             if (empresaModel == null)
@@ -121,6 +118,7 @@ namespace CA_InterfaceAdapter_Repository
                 .Skip((pageIndex-1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
+
             return new ItemsPaginatorEntity<EMP_EmpresaModel>()
             {
                 lstItem = lstItem,
