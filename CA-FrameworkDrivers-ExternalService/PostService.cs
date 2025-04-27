@@ -10,9 +10,9 @@ namespace CA_FrameworkDrivers_ExternalService
     {
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerOptions _options;
-        public PostService()
+        public PostService(HttpClient httpClient)
         {
-            _httpClient = new HttpClient();
+            _httpClient = httpClient;
             _options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
@@ -20,8 +20,8 @@ namespace CA_FrameworkDrivers_ExternalService
         }
 
         public async Task<IEnumerable<PostServiceDTO>> GetContentAsync()
-        {
-            var response = await _httpClient.GetAsync("https://jsonplaceholder.typicode.com/posts");
+        {   
+            var response = await _httpClient.GetAsync(_httpClient.BaseAddress);
             response.EnsureSuccessStatusCode();
             var responseData = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<IEnumerable<PostServiceDTO>>

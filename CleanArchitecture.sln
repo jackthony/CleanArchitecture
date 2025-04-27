@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CA-InterfaceAdapters-Adapte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CA-FrameworkDrivers-ExternalService", "CA-FrameworkDrivers-ExternalService\CA-FrameworkDrivers-ExternalService.csproj", "{E128D725-6EAB-4BB9-ABB2-A334BF2B9E01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CA-FrameworksDrivers-Console", "CA-FrameworksDrivers-Console\CA-FrameworksDrivers-Console.csproj", "{33928582-41CD-42DE-889E-874F84DCC5D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{E128D725-6EAB-4BB9-ABB2-A334BF2B9E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E128D725-6EAB-4BB9-ABB2-A334BF2B9E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E128D725-6EAB-4BB9-ABB2-A334BF2B9E01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33928582-41CD-42DE-889E-874F84DCC5D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33928582-41CD-42DE-889E-874F84DCC5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33928582-41CD-42DE-889E-874F84DCC5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33928582-41CD-42DE-889E-874F84DCC5D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +92,6 @@ Global
 		{66BE5A7F-2199-45E6-AB64-6BB98EE905E2} = {1D9F3268-F704-432E-88AC-C5458F77F4AA}
 		{23BC6881-D2C7-465C-B38C-FAA19CB4BB0F} = {1D9F3268-F704-432E-88AC-C5458F77F4AA}
 		{E128D725-6EAB-4BB9-ABB2-A334BF2B9E01} = {1D9F3268-F704-432E-88AC-C5458F77F4AA}
+		{33928582-41CD-42DE-889E-874F84DCC5D6} = {1D9F3268-F704-432E-88AC-C5458F77F4AA}
 	EndGlobalSection
 EndGlobal
