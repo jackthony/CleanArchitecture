@@ -96,12 +96,6 @@ namespace CA_InterfaceAdapter_Repository
 
             return result > 0;
         }
-
-        public Task<bool> ExistsAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<ItemsPaginatorEntity<EMP_EmpresaModel>> GetAllAsyncPagination(int pageIndex, int pageSize, string? nameEnterprise)
         {
             var query = _dbContext.Empresas.AsQueryable();

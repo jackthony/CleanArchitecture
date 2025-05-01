@@ -32,6 +32,17 @@ builder.Services.AddValidatorsFromAssemblyContaining<BeerValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        // Aquí se define qué orígenes son permitidos.
+        policy.WithOrigins("http://localhost:4200")  // Define el origen permitido
+              .AllowAnyHeader()   // Permite cualquier encabezado en la solicitud
+              .AllowAnyMethod();  // Permite cualquier método (GET, POST, PUT, DELETE, etc.)
+    });
+});
+
 
 
 //dependencias
@@ -73,6 +84,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowSpecificOrigin");  // Aplica la política que definimos anteriormente
 
 app.UseHttpsRedirection();
 
