@@ -61,6 +61,9 @@ builder.Services.AddScoped(typeof(IPresenterResponse<,>), typeof(ItemResponsePre
 builder.Services.AddScoped(typeof(ILstPagPresenterResponse<,>), typeof(LstItemPaginationResponsePresenter<,>));
 
 builder.Services.AddEMP_EmpresaServices();
+builder.Services.AddDepartamentosServices();
+builder.Services.AddProvinciasServices();
+builder.Services.AddDistritosServices();
 
 
 //builder.Services.AddScoped<IRepository<Beer>, Repository>();
@@ -124,6 +127,9 @@ app.UseMiddleware<ExceptionMiddleware>();
 //    .WithOpenApi();
 
 app.MapEmpEmpresasEndpoints();
+app.MapDepartamentosEndpoints();
+app.MapProvinciasEndpoints();
+app.MapDistritosEndpoints();
 
 app.Run();
 

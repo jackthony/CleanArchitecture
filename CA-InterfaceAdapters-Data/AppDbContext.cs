@@ -1,4 +1,5 @@
-﻿using CA_InterfaceAdapters_Models;
+﻿using CA_EntrerpriseLayer;
+using CA_InterfaceAdapters_Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CA_InterfaceAdapters_Data
@@ -11,6 +12,9 @@ namespace CA_InterfaceAdapters_Data
 
         public DbSet<BeerModel> Beers { get; set; }
         public DbSet<EMP_EmpresaModel> Empresas { get; set; }
+        public DbSet<DepartmentosModel> Departmentos { get; set; }
+        public DbSet<ProvinciasModel> Provincias { get; set; }
+        public DbSet<DistritosModel> Distritos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

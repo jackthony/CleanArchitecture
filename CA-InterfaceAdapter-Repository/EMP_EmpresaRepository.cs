@@ -31,9 +31,9 @@ namespace CA_InterfaceAdapter_Repository
                 sRazonSocial = entity.sRazonSocial,
                 nIdProponente = entity.nIdProponente,
                 nIdRubroNegocio = entity.nIdRubroNegocio,
-                nIdDepartamento = entity.nIdDepartamento,
-                nIdProvincia = entity.nIdProvincia,
-                nIdDistrito = entity.nIdDistrito,
+                sIdDepartamento = entity.sIdDepartamento,
+                sIdProvincia = entity.sIdProvincia,
+                sIdDistrito = entity.sIdDistrito,
                 sDireccion = entity.sDireccion,
                 sComentario = entity.sComentario,
                 mIngresosUltimoAnio = entity.mIngresosUltimoAnio,
@@ -57,13 +57,11 @@ namespace CA_InterfaceAdapter_Repository
             if (empresaModel == null)
                 return false;
 
-            empresaModel.sRuc = entity.sRuc;
-            empresaModel.sRazonSocial = entity.sRazonSocial;
             empresaModel.nIdProponente = entity.nIdProponente;
             empresaModel.nIdRubroNegocio = entity.nIdRubroNegocio;
-            empresaModel.nIdDepartamento = entity.nIdDepartamento;
-            empresaModel.nIdProvincia = entity.nIdProvincia;
-            empresaModel.nIdDistrito = entity.nIdDistrito;
+            empresaModel.sIdDepartamento = entity.sIdDepartamento;
+            empresaModel.sIdProvincia = entity.sIdProvincia;
+            empresaModel.sIdDistrito = entity.sIdDistrito;
             empresaModel.sDireccion = entity.sDireccion;
             empresaModel.sComentario = entity.sComentario;
             empresaModel.mIngresosUltimoAnio = entity.mIngresosUltimoAnio;
@@ -133,5 +131,9 @@ namespace CA_InterfaceAdapter_Repository
             throw new NotImplementedException();
         }
 
+        public Task<EMP_EmpresaModel> GetById()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

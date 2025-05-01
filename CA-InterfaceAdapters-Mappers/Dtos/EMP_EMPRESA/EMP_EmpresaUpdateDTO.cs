@@ -9,13 +9,11 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.EMP_EMPRESA
     public class EMP_EmpresaUpdateDTO
     {
         public int nIdEmpresa { get; set; }
-        public string sRuc { get; set; }
-        public string sRazonSocial { get; set; }
         public int nIdProponente { get; set; }
         public int nIdRubroNegocio { get; set; }
-        public int nIdDepartamento { get; set; }
-        public int nIdProvincia { get; set; }
-        public int nIdDistrito { get; set; }
+        public int sIdDepartamento { get; set; }
+        public int sIdProvincia { get; set; }
+        public int sIdDistrito { get; set; }
         public string sDireccion { get; set; }
         public string sComentario { get; set; }
         public decimal mIngresosUltimoAnio { get; set; }

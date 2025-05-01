@@ -15,13 +15,11 @@ namespace CA_InterfaceAdapters_Mappers.EMP_EMPRESA
             => new EMP_EmpresaEntity()
             {
                 nIdEmpresa=dto.nIdEmpresa,
-                sRuc=dto.sRuc,
-                sRazonSocial=dto.sRazonSocial,
                 nIdProponente=dto.nIdProponente,
                 nIdRubroNegocio=dto.nIdRubroNegocio,
-                nIdDepartamento=dto.nIdDepartamento,
-                nIdProvincia=dto.nIdProvincia,
-                nIdDistrito=dto.nIdDistrito,
+                sIdDepartamento=dto.sIdDepartamento,
+                sIdProvincia=dto.sIdProvincia,
+                sIdDistrito=dto.sIdDistrito,
                 sDireccion=dto.sDireccion,
                 sComentario=dto.sComentario,
                 mIngresosUltimoAnio=dto.mIngresosUltimoAnio,
