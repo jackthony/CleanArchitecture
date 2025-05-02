@@ -10,7 +10,7 @@ namespace CA_ApplicationLayer
     public interface IRepositoryRead<TModel>
     {
         Task<IEnumerable<TModel>> GetAllAsync();
-        Task<TModel> GetById();
+        Task<TModel> GetById(int id);
         Task<ItemsPaginatorEntity<TModel>> GetAllAsyncPagination(int pageIndex, int pageSize, string? paramSearch);
 
     }

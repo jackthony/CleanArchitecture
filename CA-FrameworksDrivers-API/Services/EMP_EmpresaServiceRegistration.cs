@@ -22,6 +22,7 @@ namespace CA_FrameworksDrivers_API.Services
             services.AddScoped<AddEmpEmpresaUseCase<EMP_EmpresaCreateDTO,ItemResponse<int>>>();
             services.AddScoped<EditEmpEmpresaUseCase<EMP_EmpresaUpdateDTO, ItemResponse<bool>>>();
             services.AddScoped<DeleteEmpEmpresaUseCase<ItemResponse<bool>>>();
+            services.AddScoped<GetByIdEmpEmpresaUseCase<ItemResponse<EMP_EmpresaModel>>>();
         }
     }
 }

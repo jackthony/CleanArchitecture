@@ -33,8 +33,7 @@ namespace CA_InterfaceAdapter_Repository
         {
             throw new NotImplementedException();
         }
-
-        public Task<CatMinisterioModel> GetById()
+        public Task<CatMinisterioModel> GetById(int id)
         {
             throw new NotImplementedException();
         }

@@ -42,6 +42,14 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithTags("EMP_Empresa")
             .WithName("DeleteEmpEmpresa")
             .WithOpenApi();
+
+            app.MapGet("EMP_Empresa/GetById", async (int nIdMinisterio, GetByIdEmpEmpresaUseCase<ItemResponse<EMP_EmpresaModel>> useCase) =>
+            {
+                return await useCase.ExecuteAsync(nIdMinisterio);
+            })
+            .WithTags("EMP_Empresa")
+            .WithName("GetByIdEmpEmpresas")
+            .WithOpenApi();
         }
     }
 }

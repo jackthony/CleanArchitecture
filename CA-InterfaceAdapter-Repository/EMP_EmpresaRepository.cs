@@ -126,14 +126,11 @@ namespace CA_InterfaceAdapter_Repository
             return await _dbContext.Empresas.ToListAsync();
         }
 
-        public Task<EMP_EmpresaModel> GetByIdAsync(int id)
+        public async Task<EMP_EmpresaModel> GetById(int id)
         {
-            throw new NotImplementedException();
-        }
+            var empresa = await _dbContext.Empresas.FirstOrDefaultAsync(e => e.nIdEmpresa == id);
 
-        public Task<EMP_EmpresaModel> GetById()
-        {
-            throw new NotImplementedException();
+            return empresa;
         }
     }
 }

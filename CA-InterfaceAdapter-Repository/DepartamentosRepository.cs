@@ -35,7 +35,7 @@ namespace CA_InterfaceAdapter_Repository
             throw new NotImplementedException();
         }
 
-        public Task<DepartmentosModel> GetById()
+        public Task<DepartmentosModel> GetById(int id)
         {
             throw new NotImplementedException();
         }
