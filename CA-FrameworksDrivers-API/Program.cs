@@ -64,6 +64,8 @@ builder.Services.AddEMP_EmpresaServices();
 builder.Services.AddDepartamentosServices();
 builder.Services.AddProvinciasServices();
 builder.Services.AddDistritosServices();
+builder.Services.AddConstanteServices();
+builder.Services.AddCatMinisterioServices();
 
 
 //builder.Services.AddScoped<IRepository<Beer>, Repository>();
@@ -94,42 +96,14 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-//app.MapGet("/beer", async (GetBeerUseCase<Beer, BeerViewModel> beerUseCase) => 
-//{
-//    return await beerUseCase.ExecuteAsync();
-//})
-//.WithName("beers")
-//.WithOpenApi();
 
-//app.MapPost("/beer", async (BeerRequestDTO beerRequest, AddBeerUseCase<BeerRequestDTO> beerUseCase,
-//    IValidator<BeerRequestDTO> validator) =>
-//{
-//    var result = await validator.ValidateAsync(beerRequest);
-
-//    await beerUseCase.ExecuteAsync(beerRequest);
-
-//    if (!result.IsValid)
-//    {
-//        return Results.ValidationProblem(result.ToDictionary());
-//    }
-//    await beerUseCase.ExecuteAsync(beerRequest);
-//    return Results.Created();
-
-//})
-//.WithName("add-beer")
-//.WithOpenApi();
-
-//app.MapGet("/beerDetail", async (GetBeerUseCase<Beer, BeerDetailViewModel> beerUseCase) =>
-//{
-//    return await beerUseCase.ExecuteAsync();
-//})
-//    .WithName("beerDetail")
-//    .WithOpenApi();
 
 app.MapEmpEmpresasEndpoints();
 app.MapDepartamentosEndpoints();
 app.MapProvinciasEndpoints();
 app.MapDistritosEndpoints();
+app.MapConstanteEndpoints();
+app.MapCatMinisterioEndpoints();
 
 app.Run();
 
