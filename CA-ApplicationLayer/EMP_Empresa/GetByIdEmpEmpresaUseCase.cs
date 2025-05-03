@@ -20,11 +20,11 @@ namespace CA_ApplicationLayer.EMP_Empresa
             _presenterResponse = presenterResponse;
         }
 
-        public async Task<IResult> ExecuteAsync(int nIdMinisterio)
+        public async Task<IResult> ExecuteAsync(int nIdEmpresa)
         {
             try
             {
-                var empresas = await _empEmpresaRepository.GetById(nIdMinisterio);
+                var empresas = await _empEmpresaRepository.GetById(nIdEmpresa);
                 var response = _presenterResponse.Present(empresas);
 
                 return Results.Ok(response);
