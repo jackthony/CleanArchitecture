@@ -15,8 +15,6 @@ namespace CA_InterfaceAdapters_Mappers.EMP_EMPRESA
             => new EMP_EmpresaEntity()
             {
                 nIdEmpresa=dto.nIdEmpresa,
-                nIdProponente=dto.nIdProponente,
-                nIdRubroNegocio=dto.nIdRubroNegocio,
                 sIdDepartamento=dto.sIdDepartamento,
                 sIdProvincia=dto.sIdProvincia,
                 sIdDistrito=dto.sIdDistrito,
@@ -25,7 +23,6 @@ namespace CA_InterfaceAdapters_Mappers.EMP_EMPRESA
                 mIngresosUltimoAnio=dto.mIngresosUltimoAnio,
                 mUtilidadUltimoAnio=dto.mUtilidadUltimoAnio,
                 mConformacionCapitalSocial=dto.mConformacionCapitalSocial,
-                nNumeroMiembros=dto.nNumeroMiembros,
                 bRegistradoMercadoValores=dto.bRegistradoMercadoValores,
                 bActivo=dto.bActivo,
                 sUsuarioModificacion=dto.sUsuarioModificacion

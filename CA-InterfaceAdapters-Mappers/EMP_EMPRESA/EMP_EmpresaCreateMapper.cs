@@ -10,7 +10,6 @@ namespace CA_InterfaceAdapters_Mappers.EMP_EMPRESA
         public EMP_EmpresaEntity ToEntity(EMP_EmpresaCreateDTO dto)
             => new EMP_EmpresaEntity()
             {
-                sNombreEmpresa = dto.sNombreEmpresa,
                 sRuc = dto.sRuc,
                 sRazonSocial = dto.sRazonSocial,
                 nIdProponente = dto.nIdProponente,
@@ -23,7 +22,6 @@ namespace CA_InterfaceAdapters_Mappers.EMP_EMPRESA
                 mIngresosUltimoAnio = dto.mIngresosUltimoAnio,
                 mUtilidadUltimoAnio = dto.mUtilidadUltimoAnio,
                 mConformacionCapitalSocial = dto.mConformacionCapitalSocial,
-                nNumeroMiembros = dto.nNumeroMiembros,
                 bRegistradoMercadoValores = dto.bRegistradoMercadoValores,
                 bActivo = dto.bActivo,
                 sUsuarioRegistro = dto.sUsuarioRegistro

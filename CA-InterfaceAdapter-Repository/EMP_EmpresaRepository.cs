@@ -26,7 +26,6 @@ namespace CA_InterfaceAdapter_Repository
             var empresaModel = new EMP_EmpresaModel()
             {
                 nIdEmpresa = entity.nIdEmpresa,
-                sNombreEmpresa = entity.sNombreEmpresa,
                 sRuc = entity.sRuc,
                 sRazonSocial = entity.sRazonSocial,
                 nIdProponente = entity.nIdProponente,
@@ -39,7 +38,6 @@ namespace CA_InterfaceAdapter_Repository
                 mIngresosUltimoAnio = entity.mIngresosUltimoAnio,
                 mUtilidadUltimoAnio = entity.mUtilidadUltimoAnio,
                 mConformacionCapitalSocial = entity.mConformacionCapitalSocial,
-                nNumeroMiembros = entity.nNumeroMiembros,
                 bRegistradoMercadoValores = entity.bRegistradoMercadoValores,
                 bActivo = entity.bActivo,
                 dtFechaRegistro = entity.dtFechaRegistro,
@@ -57,8 +55,6 @@ namespace CA_InterfaceAdapter_Repository
             if (empresaModel == null)
                 return false;
 
-            empresaModel.nIdProponente = entity.nIdProponente;
-            empresaModel.nIdRubroNegocio = entity.nIdRubroNegocio;
             empresaModel.sIdDepartamento = entity.sIdDepartamento;
             empresaModel.sIdProvincia = entity.sIdProvincia;
             empresaModel.sIdDistrito = entity.sIdDistrito;
@@ -67,7 +63,6 @@ namespace CA_InterfaceAdapter_Repository
             empresaModel.mIngresosUltimoAnio = entity.mIngresosUltimoAnio;
             empresaModel.mUtilidadUltimoAnio = entity.mUtilidadUltimoAnio;
             empresaModel.mConformacionCapitalSocial = entity.mConformacionCapitalSocial;
-            empresaModel.nNumeroMiembros = entity.nNumeroMiembros;
             empresaModel.bRegistradoMercadoValores = entity.bRegistradoMercadoValores;
             empresaModel.bActivo = entity.bActivo;
             empresaModel.dtFechaModificacion = entity.dtFechaModificacion;
