@@ -17,12 +17,14 @@ namespace CA_InterfaceAdapters_Data
         public DbSet<DistritosModel> Distritos { get; set; }
         public DbSet<ConstanteModel> Constante { get; set; }
         public DbSet<CatMinisterioModel> Ministerio { get; set; }
+        public DbSet<Dir_DirectorModel> Director { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BeerModel>().ToTable("Beer");
             modelBuilder.Entity<EMP_EmpresaModel>().ToTable("EMP_Empresa");
             modelBuilder.Entity<CatMinisterioModel>().ToTable("CAT_Ministerio");
+            modelBuilder.Entity<Dir_DirectorModel>().ToTable("DIR_Director");
 
             modelBuilder.Entity<ConstanteModel>().HasNoKey();
         }

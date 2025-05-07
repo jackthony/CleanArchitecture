@@ -66,6 +66,7 @@ builder.Services.AddProvinciasServices();
 builder.Services.AddDistritosServices();
 builder.Services.AddConstanteServices();
 builder.Services.AddCatMinisterioServices();
+builder.Services.AddDirDirectorServices();
 
 
 //builder.Services.AddScoped<IRepository<Beer>, Repository>();
@@ -104,6 +105,7 @@ app.MapProvinciasEndpoints();
 app.MapDistritosEndpoints();
 app.MapConstanteEndpoints();
 app.MapCatMinisterioEndpoints();
+app.MapDirDirectorioEndpoints();
 
 app.Run();
 
