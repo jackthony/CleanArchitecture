@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,8 +41,11 @@ namespace CA_InterfaceAdapters_Models
 
         public string sNombreCompleto => $"{sNombres} {sApellidos}";
 
+        [NotMapped]
         public string? sTipoDocumentoDescripcion { get; set; }
+        [NotMapped]
         public string? sCargoDescripcion { get; set; }
+        [NotMapped]
         public string? sTipoDirectorDescripcion { get; set; }
     }
 }
