@@ -6,6 +6,7 @@ using CA_InterfaceAdapters_Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,13 +92,54 @@ namespace CA_InterfaceAdapter_Repository
         }
         public async Task<ItemsPaginatorEntity<EMP_EmpresaModel>> GetAllAsyncPagination(int pageIndex, int pageSize, string? nameEnterprise)
         {
-            var query = _dbContext.Empresas.AsQueryable();
+
+            var query = from empresa in _dbContext.Empresas
+
+                        join constante in _dbContext.Constante
+                            on new { Codigo = 1024, Valor = empresa.nIdRubroNegocio }
+                            equals new { Codigo = constante.nConCodigo, Valor = constante.nConValor }
+
+                        join ministerio in _dbContext.Ministerio
+                            on new { Codigo = empresa.nIdProponente }
+                            equals new { Codigo = ministerio.nIdMinisterio }
+
+                        join provincia in _dbContext.Provincias
+                            on new { Codigo = empresa.sIdProvincia }
+                            equals new { Codigo = provincia.sCode }
+
+                        select new EMP_EmpresaModel
+                        {
+                            nIdEmpresa = empresa.nIdEmpresa,
+                            sRuc = empresa.sRuc,
+                            sRazonSocial = empresa.sRazonSocial,
+                            nIdProponente = empresa.nIdProponente,
+                            nIdRubroNegocio = empresa.nIdRubroNegocio,
+                            sIdDepartamento = empresa.sIdDepartamento,
+                            sIdProvincia = empresa.sIdProvincia,
+                            sIdDistrito = empresa.sIdDistrito,
+                            sDireccion = empresa.sDireccion,
+                            sComentario = empresa.sComentario,
+                            mIngresosUltimoAnio = empresa.mIngresosUltimoAnio,
+                            mUtilidadUltimoAnio = empresa.mUtilidadUltimoAnio,
+                            mConformacionCapitalSocial = empresa.mConformacionCapitalSocial,
+                            nNumeroMiembros = empresa.nNumeroMiembros,
+                            bRegistradoMercadoValores = empresa.bRegistradoMercadoValores,
+                            bActivo = empresa.bActivo,
+                            dtFechaRegistro = empresa.dtFechaRegistro,
+                            sUsuarioRegistro = empresa.sUsuarioRegistro,
+                            dtFechaModificacion = empresa.dtFechaModificacion,
+                            sUsuarioModificacion = empresa.sUsuarioModificacion,
+                            sDescripcionRubro = constante.sConDescripcion,
+                            sNombreMinisterio = ministerio.sNombreMinisterio,
+                            sProvinciaDescripcion = provincia.sName
+                        };
 
             if (!string.IsNullOrEmpty(nameEnterprise))
             {
                 
                 query = query.Where(e => e.sRazonSocial.Contains(nameEnterprise));
             }
+
 
             var totalRows = await query.CountAsync();
             var lstItem = await query

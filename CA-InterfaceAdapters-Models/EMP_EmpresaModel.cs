@@ -25,12 +25,20 @@ namespace CA_InterfaceAdapters_Models
         public decimal mUtilidadUltimoAnio { get; set; }
         public decimal mConformacionCapitalSocial { get; set; }
 
-        public int nNumeroMiembros { get; }
+        [NotMapped]
+        public int nNumeroMiembros { get; set; }
         public bool bRegistradoMercadoValores { get; set; }
         public bool bActivo { get; set; }
         public DateTime dtFechaRegistro { get; set; }
         public string sUsuarioRegistro { get; set; }
         public DateTime? dtFechaModificacion { get; set; }
         public string? sUsuarioModificacion { get; set; }
+
+        [NotMapped]
+        public string? sDescripcionRubro { get; set; }
+        [NotMapped]
+        public string? sNombreMinisterio { get; set; }
+        [NotMapped]
+        public string? sProvinciaDescripcion { get; set; }
     }
 }
