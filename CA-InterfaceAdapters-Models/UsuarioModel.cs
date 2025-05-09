@@ -22,7 +22,7 @@ namespace CA_InterfaceAdapters_Models
 
         public string sCorreoElectronico { get; set; } = string.Empty;
 
-        public bool bActivo { get; set; } = true;
+        public int nEstado { get; set; }
 
         public DateTime dtFechaRegistro { get; set; }
 

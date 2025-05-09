@@ -19,7 +19,7 @@ namespace CA_InterfaceAdapters_Mappers.USUARIOS
                 nIdCargo = dto.nIdCargo,
                 nIdRol = dto.nIdRol,
                 sCorreoElectronico = dto.sCorreoElectronico,
-                bActivo = dto.bActivo,
+                nEstado = dto.nEstado,
                 dtFechaModificacion = dto.dtFechaModificacion,
                 sUsuarioModificacion = dto.sUsuarioModificacion,
             };

@@ -17,7 +17,7 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.USUARIOS
 
         public string sCorreoElectronico { get; set; } = string.Empty;
 
-        public bool bActivo { get; set; } = true;
+        public int nEstado { get; set; }
 
         public DateTime? dtFechaModificacion { get; set; }
 

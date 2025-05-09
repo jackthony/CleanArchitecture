@@ -29,7 +29,7 @@ namespace CA_InterfaceAdapter_Repository
                 nIdCargo = entity.nIdCargo,
                 nIdRol = entity.nIdRol,
                 sCorreoElectronico = entity.sCorreoElectronico,
-                bActivo = entity.bActivo,
+                nEstado = entity.nEstado,
                 dtFechaRegistro = entity.dtFechaRegistro,
                 sUsuarioRegistro = entity.sUsuarioRegistro
             };
@@ -48,7 +48,7 @@ namespace CA_InterfaceAdapter_Repository
             model.nIdCargo = entity.nIdCargo;
             model.nIdRol = entity.nIdRol;
             model.sCorreoElectronico = entity.sCorreoElectronico;
-            model.bActivo = entity.bActivo;
+            model.nEstado = entity.nEstado;
             model.dtFechaModificacion = entity.dtFechaModificacion;
             model.sUsuarioModificacion = entity.sUsuarioModificacion;
 
