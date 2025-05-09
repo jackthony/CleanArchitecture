@@ -18,6 +18,7 @@ namespace CA_InterfaceAdapters_Data
         public DbSet<ConstanteModel> Constante { get; set; }
         public DbSet<CatMinisterioModel> Ministerio { get; set; }
         public DbSet<Dir_DirectorModel> Director { get; set; }
+        public DbSet<UsuarioModel> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,7 @@ namespace CA_InterfaceAdapters_Data
             modelBuilder.Entity<EMP_EmpresaModel>().ToTable("EMP_Empresa");
             modelBuilder.Entity<CatMinisterioModel>().ToTable("CAT_Ministerio");
             modelBuilder.Entity<Dir_DirectorModel>().ToTable("DIR_Director");
+            modelBuilder.Entity<UsuarioModel>().ToTable("SEG_Usuario");
 
             modelBuilder.Entity<ConstanteModel>().HasNoKey();
         }

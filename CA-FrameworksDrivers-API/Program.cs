@@ -67,6 +67,7 @@ builder.Services.AddDistritosServices();
 builder.Services.AddConstanteServices();
 builder.Services.AddCatMinisterioServices();
 builder.Services.AddDirDirectorServices();
+builder.Services.AddUsuariosServices();
 
 
 //builder.Services.AddScoped<IRepository<Beer>, Repository>();
@@ -106,6 +107,7 @@ app.MapDistritosEndpoints();
 app.MapConstanteEndpoints();
 app.MapCatMinisterioEndpoints();
 app.MapDirDirectorioEndpoints();
+app.MapUsuariosEndpoints();
 
 app.Run();
 
