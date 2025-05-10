@@ -15,10 +15,9 @@ namespace CA_InterfaceAdapters_Mappers.USUARIOS
         public UsuarioEntity ToEntity(UsuarioUpdateDTO dto)
             => new UsuarioEntity()
             {
-                sContrasena = dto.sContrasena,
+                nIdUsuario = dto.nIdUsuario,
                 nIdCargo = dto.nIdCargo,
                 nIdRol = dto.nIdRol,
-                sCorreoElectronico = dto.sCorreoElectronico,
                 nEstado = dto.nEstado,
                 dtFechaModificacion = dto.dtFechaModificacion,
                 sUsuarioModificacion = dto.sUsuarioModificacion,

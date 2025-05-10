@@ -10,7 +10,9 @@ namespace CA_EntrerpriseLayer
     {
         public int nIdUsuario { get; set; }
 
-        public string sNombresApellidos { get; set; } = string.Empty;
+        public string sApellidoPaterno { get; set; } = string.Empty;
+        public string sApellidoMaterno { get; set; } = string.Empty;
+        public string sNombres { get; set; } = string.Empty;
 
         public string sContrasena { get; set; } = string.Empty;
 

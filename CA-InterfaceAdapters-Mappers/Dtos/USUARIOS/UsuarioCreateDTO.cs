@@ -8,7 +8,9 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.USUARIOS
 {
     public class UsuarioCreateDTO
     {
-        public string sNombresApellidos { get; set; } = string.Empty;
+        public string sApellidoPaterno { get; set; } = string.Empty;
+        public string sApellidoMaterno { get; set; } = string.Empty;
+        public string sNombres { get; set; } = string.Empty;
 
         public string sContrasena { get; set; } = string.Empty;
 

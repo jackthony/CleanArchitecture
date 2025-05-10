@@ -15,7 +15,9 @@ namespace CA_InterfaceAdapters_Mappers.USUARIOS
         public UsuarioEntity ToEntity(UsuarioCreateDTO dto)
             => new UsuarioEntity()
             {
-                sNombresApellidos = dto.sNombresApellidos,
+                sApellidoPaterno = dto.sApellidoPaterno,
+                sApellidoMaterno = dto.sApellidoMaterno,
+                sNombres = dto.sNombres,
                 sContrasena = dto.sContrasena,
                 nIdCargo = dto.nIdCargo,
                 nIdRol = dto.nIdRol,

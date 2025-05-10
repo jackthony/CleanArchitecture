@@ -10,9 +10,9 @@ namespace CA_FrameworksDrivers_API.Endpoints
     {
         public static void MapUsuariosEndpoints(this WebApplication app)
         {
-            app.MapGet("Usuario/GetByPagination", async (int pageIndex, int pageSize, string? nameEnterprise, GetAllUsuariosUseCase<LstItemResponse<UsuarioModel>> useCase) =>
+            app.MapGet("Usuario/GetByPagination", async (int pageIndex, int pageSize, string? fullName, GetAllUsuariosUseCase<LstItemResponse<UsuarioModel>> useCase) =>
             {
-                return await useCase.ExecuteAsync(pageIndex, pageSize, nameEnterprise);
+                return await useCase.ExecuteAsync(pageIndex, pageSize, fullName);
             })
             .WithTags("Usuario")
             .WithName("GetAllUsuarios")
@@ -26,7 +26,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("InsertUsuario")
             .WithOpenApi();
 
-            app.MapPut("Usuarios/Update", async (UsuarioUpdateDTO request, EditUsuarioUseCase<UsuarioUpdateDTO, ItemResponse<bool>> useCase) =>
+            app.MapPut("Usuario/Update", async (UsuarioUpdateDTO request, EditUsuarioUseCase<UsuarioUpdateDTO, ItemResponse<bool>> useCase) =>
             {
                 return await useCase.ExecuteAsync(request);
             })

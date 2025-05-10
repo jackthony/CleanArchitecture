@@ -24,7 +24,9 @@ namespace CA_InterfaceAdapter_Repository
         {
             var model = new UsuarioModel
             {
-                sNombresApellidos = entity.sNombresApellidos,
+                sApellidoPaterno = entity.sApellidoPaterno,
+                sApellidoMaterno = entity.sApellidoMaterno,
+                sNombres = entity.sNombres,
                 sContrasena = entity.sContrasena,
                 nIdCargo = entity.nIdCargo,
                 nIdRol = entity.nIdRol,
@@ -44,10 +46,8 @@ namespace CA_InterfaceAdapter_Repository
             var model = await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.nIdUsuario == entity.nIdUsuario);
             if (model == null) return false;
 
-            model.sContrasena = entity.sContrasena;
             model.nIdCargo = entity.nIdCargo;
             model.nIdRol = entity.nIdRol;
-            model.sCorreoElectronico = entity.sCorreoElectronico;
             model.nEstado = entity.nEstado;
             model.dtFechaModificacion = entity.dtFechaModificacion;
             model.sUsuarioModificacion = entity.sUsuarioModificacion;
@@ -71,7 +71,7 @@ namespace CA_InterfaceAdapter_Repository
 
             if (!string.IsNullOrEmpty(nombreUsuario))
             {
-                query = query.Where(u => u.sNombresApellidos.Contains(nombreUsuario));
+                query = query.Where(u => (u.sApellidoPaterno.ToLower() + " " + u.sApellidoMaterno.ToLower() + " " + u.sNombres.ToLower()).Contains(nombreUsuario.ToLower()));
             }
 
             return await query.OrderBy(u => u.nIdUsuario).ToListAsync();
@@ -84,7 +84,7 @@ namespace CA_InterfaceAdapter_Repository
 
         public async Task<bool> ExistsAsync(string nombreUsuario)
         {
-            return await _dbContext.Usuarios.AnyAsync(u => u.sNombresApellidos == nombreUsuario);
+            return await _dbContext.Usuarios.AnyAsync(u => u.sCorreoElectronico == nombreUsuario);
         }
 
         public Task<IEnumerable<UsuarioModel>> GetAllAsync()
@@ -99,13 +99,48 @@ namespace CA_InterfaceAdapter_Repository
 
         public async Task<ItemsPaginatorEntity<UsuarioModel>> GetAllAsyncPagination(int pageIndex, int pageSize, string? paramSearch)
         {
-            var query = _dbContext.Usuarios.AsQueryable();
+            //var query = _dbContext.Usuarios.AsQueryable();
+
+            var query = from usuario in _dbContext.Usuarios
+
+                        join consCargo in _dbContext.Constante
+                            on new { Codigo = 11, Valor = usuario.nIdCargo }
+                            equals new { Codigo = consCargo.nConCodigo, Valor = consCargo.nConValor }
+
+                        join consPerfil in _dbContext.Constante
+                            on new { Codigo = 12, Valor = usuario.nIdRol }
+                            equals new { Codigo = consPerfil.nConCodigo, Valor = consPerfil.nConValor }
+
+                        join consUser in _dbContext.Constante
+                            on new { Codigo = 10, Valor = usuario.nEstado }
+                            equals new { Codigo = consUser.nConCodigo, Valor = consUser.nConValor }
+
+
+
+                        select new UsuarioModel
+                        {
+                            nIdUsuario = usuario.nIdUsuario,
+                            sApellidoPaterno = usuario.sApellidoPaterno,
+                            sApellidoMaterno = usuario.sApellidoMaterno,
+                            sNombres = usuario.sNombres,
+                            sContrasena = "******",
+                            nIdCargo = usuario.nIdCargo,
+                            nIdRol = usuario.nIdRol,
+                            sCorreoElectronico = usuario.sCorreoElectronico,
+                            nEstado = usuario.nEstado,
+                            dtFechaRegistro = usuario.dtFechaRegistro,
+                            sUsuarioRegistro = usuario.sUsuarioRegistro,
+                            dtFechaModificacion = usuario.dtFechaModificacion,
+                            sUsuarioModificacion = usuario.sUsuarioModificacion,
+                            sCargoDescripcion = consCargo.sConDescripcion,
+                            sPerfilDescripcion = consPerfil.sConDescripcion,
+                            sEstadoDescripcion = consUser.sConDescripcion
+                        };
 
             if (!string.IsNullOrEmpty(paramSearch))
             {
-                query = query.Where(u => u.sNombresApellidos.Contains(paramSearch));
+                query = query.Where(u => EF.Functions.Like(u.sApellidoPaterno.ToLower() + " " + u.sApellidoMaterno.ToLower() + " " + u.sNombres.ToLower(), "%" + paramSearch.ToLower() + "%"));
             }
-
 
             var totalRows = await query.CountAsync();
                        var lstItem = await query
