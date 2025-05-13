@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>CA_InterfaceAdapters_Presenters</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CA-ApplicationLayer\CA-ApplicationLayer.csproj" />
+    <ProjectReference Include="..\CA-EntrerpriseLayer\CA-EntrerpriseLayer.csproj" />
+    <ProjectReference Include="..\CA-InterfaceAdapters-Mappers\CA-InterfaceAdapters-Mappers.csproj" />
+  </ItemGroup>
+
+</Project>
