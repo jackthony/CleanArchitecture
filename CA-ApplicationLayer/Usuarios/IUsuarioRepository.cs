@@ -10,6 +10,6 @@ namespace CA_ApplicationLayer.Usuarios
 {
     public interface IUsuarioRepository : IRepository<UsuarioEntity, UsuarioModel>
     {
-
+        Task<UsuarioModel> GetByEmailAsync(UsuarioEntity entity);
     }
 }

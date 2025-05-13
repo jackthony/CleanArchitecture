@@ -20,6 +20,9 @@ namespace CA_FrameworksDrivers_API.Services
             services.AddScoped<AddUsuarioUseCase<UsuarioCreateDTO, ItemResponse<int>>>();
             services.AddScoped<EditUsuarioUseCase<UsuarioUpdateDTO, ItemResponse<bool>>>();
             services.AddScoped<DeleteUsuarioUseCase<ItemResponse<bool>>>();
+            services.AddScoped<LoginUsuarioUseCase<LoginRequestDTO, ItemResponse<LoginResponseDTO>, LoginResponseDTO>>();
+            services.AddScoped<IMapper<LoginRequestDTO, UsuarioEntity>, LoginRequestMapper>();
+            services.AddScoped<IMapper<UsuarioModel, LoginResponseDTO>, LoginResponseMapper>();
         }
     }
 }

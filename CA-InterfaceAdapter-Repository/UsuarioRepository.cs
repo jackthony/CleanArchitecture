@@ -157,5 +157,12 @@ namespace CA_InterfaceAdapter_Repository
                 TotalRows = totalRows
             };
         }
+
+        public async Task<UsuarioModel> GetByEmailAsync(UsuarioEntity entity)
+        {
+            var user = await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.sCorreoElectronico == entity.sCorreoElectronico);
+
+            return user;
+        }
     }
 }

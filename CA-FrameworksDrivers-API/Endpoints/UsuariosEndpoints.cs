@@ -18,6 +18,14 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("GetAllUsuarios")
             .WithOpenApi();
 
+            app.MapPost("Usuario/Login", async (LoginRequestDTO request, LoginUsuarioUseCase<LoginRequestDTO, ItemResponse<LoginResponseDTO>, LoginResponseDTO> useCase) =>
+            {
+                return await useCase.ExecuteAsync(request);
+            })
+            .WithTags("Usuario")
+            .WithName("LoginUser")
+            .WithOpenApi();
+
             app.MapPost("Usuario/Insert", async (UsuarioCreateDTO request, AddUsuarioUseCase<UsuarioCreateDTO, ItemResponse<int>> useCase) =>
             {
                 return await useCase.ExecuteAsync(request);
