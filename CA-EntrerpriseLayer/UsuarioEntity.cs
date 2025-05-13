@@ -29,6 +29,7 @@ namespace CA_EntrerpriseLayer
         public string sUsuarioRegistro { get; set; } = string.Empty;
 
         public DateTime? dtFechaModificacion { get; set; }
+        public bool bCambiarClave { get; set; }
 
         public string? sUsuarioModificacion { get; set; }
     }

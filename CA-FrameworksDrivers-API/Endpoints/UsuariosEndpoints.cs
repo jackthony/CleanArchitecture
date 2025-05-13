@@ -26,6 +26,14 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("LoginUser")
             .WithOpenApi();
 
+            app.MapPost("Usuario/ChangePassAdmin", async (ChangePasswordRequestDTO request, ChangePasswordByAdminUseCase<ChangePasswordRequestDTO, ItemResponse<bool>> useCase) =>
+            {
+                return await useCase.ExecuteAsync(request);
+            })
+            .WithTags("Usuario")
+            .WithName("ChangePassAdm")
+            .WithOpenApi();
+
             app.MapPost("Usuario/Insert", async (UsuarioCreateDTO request, AddUsuarioUseCase<UsuarioCreateDTO, ItemResponse<int>> useCase) =>
             {
                 return await useCase.ExecuteAsync(request);

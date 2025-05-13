@@ -8,6 +8,7 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.USUARIOS
 {
     public class LoginResponseDTO
     {
+        public int usuario { get; set; }
         public string email { get; set; } = string.Empty;
         public string nombreCompleto { get; set; } = string.Empty;
         public string primerNombre { get; set; } = string.Empty;

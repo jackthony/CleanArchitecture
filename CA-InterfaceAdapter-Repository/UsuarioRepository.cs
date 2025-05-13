@@ -164,5 +164,18 @@ namespace CA_InterfaceAdapter_Repository
 
             return user;
         }
+
+        public async Task<bool> ChangePasswordAdminAsync(UsuarioEntity entity)
+        {
+            var model = await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.nIdUsuario == entity.nIdUsuario);
+            if (model == null) return false;
+
+            model.bCambiarClave = true;
+            model.sContrasena = entity.sContrasena;
+            model.sUsuarioModificacion = entity.sUsuarioModificacion;
+
+            _dbContext.Usuarios.Update(model);
+            return await _dbContext.SaveChangesAsync() > 0;
+        }
     }
 }

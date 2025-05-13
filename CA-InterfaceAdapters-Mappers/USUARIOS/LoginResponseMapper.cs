@@ -16,6 +16,7 @@ namespace CA_InterfaceAdapters_Mappers.USUARIOS
         public LoginResponseDTO ToEntity(UsuarioModel model)
         => new LoginResponseDTO()
         {
+            usuario = model.nIdUsuario,
             email = model.sCorreoElectronico,
             nombreCompleto = model.sNombreCompleto,
             primerNombre = LoginHelper.ObtenerPrimerNombre(model.sNombres),

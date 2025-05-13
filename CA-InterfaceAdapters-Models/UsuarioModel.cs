@@ -45,5 +45,7 @@ namespace CA_InterfaceAdapters_Models
         public string? sEstadoDescripcion { get; set; }
         [NotMapped]
         public string sNombreCompleto => $"{sApellidoPaterno} {sApellidoMaterno} {sNombres}";
+
+        public bool bCambiarClave { get; set; }
     }
 }

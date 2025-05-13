@@ -23,6 +23,8 @@ namespace CA_FrameworksDrivers_API.Services
             services.AddScoped<LoginUsuarioUseCase<LoginRequestDTO, ItemResponse<LoginResponseDTO>, LoginResponseDTO>>();
             services.AddScoped<IMapper<LoginRequestDTO, UsuarioEntity>, LoginRequestMapper>();
             services.AddScoped<IMapper<UsuarioModel, LoginResponseDTO>, LoginResponseMapper>();
+            services.AddScoped<ChangePasswordByAdminUseCase<ChangePasswordRequestDTO, ItemResponse<bool>>>();
+            services.AddScoped<IMapper<ChangePasswordRequestDTO, UsuarioEntity>, ChangePasswordMapper>();
         }
     }
 }
