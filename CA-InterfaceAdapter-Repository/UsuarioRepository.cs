@@ -178,5 +178,6 @@ namespace CA_InterfaceAdapter_Repository
                 && u.sContrasena == entity.antiguaClave);
             return model == null;
         }
+
     }
 }

@@ -36,6 +36,5 @@ namespace CA_EntrerpriseLayer
         public string nuevaClave { get; set; } = string.Empty;
         public string repetirClave { get; set; } = string.Empty;
         public bool? cambioClave { get; set; }
-
     }
 }

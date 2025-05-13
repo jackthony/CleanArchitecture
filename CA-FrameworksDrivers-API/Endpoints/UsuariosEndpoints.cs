@@ -50,13 +50,13 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("ChangePassword")
             .WithOpenApi();
 
-            //    app.MapGet("Usuario/GetAll", async (GetAllUsuariosUseCase<ItemResponse<UsuarioModel>> useCase) =>
-            //    {
-            //        return await useCase.ExecuteAsync();
-            //    })
-            //    .WithTags("Usuario")
-            //    .WithName("GetAllUsuario")
-            //    .WithOpenApi();
+        //    app.MapGet("Usuario/GetAll", async (GetAllUsuariosUseCase<ItemResponse<UsuarioModel>> useCase) =>
+        //    {
+        //        return await useCase.ExecuteAsync();
+        //    })
+        //    .WithTags("Usuario")
+        //    .WithName("GetAllUsuario")
+        //    .WithOpenApi();
         }
     }
 }
