@@ -15,12 +15,9 @@ namespace CA_InterfaceAdapters_Mappers.USUARIOS
             => new UsuarioEntity()
             {
                 nIdUsuario = dto.nIdUsuario,
-                dtFechaModificacion = dto.dtFechaModificacion,
-                sUsuarioModificacion = dto.sUsuarioModificacion,
                 nuevaClave = dto.nuevaClave,
-                antiguaClave = dto.antiguaClave,
                 repetirClave = dto.repetirClave,
-                cambioClave = dto.bCambioClave,
+                nUsuarioModificacion = dto.nUsuarioModificacion
             };
     }
 }

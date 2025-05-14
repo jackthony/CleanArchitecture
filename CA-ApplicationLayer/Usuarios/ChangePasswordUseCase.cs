@@ -29,16 +29,6 @@ namespace CA_ApplicationLayer.Usuarios
             try
             {
                 var user = _mapper.ToEntity(entity);
-                bool validate = await _usuarioRepository.ValidarPassword(user);
-                if (!validate)
-                {
-                    var errorResponse = new
-                    {
-                        IsSuccess = false,
-                        Errors = new List<string> { "Contraseña incorrecta" }
-                    };
-                    return Results.BadRequest(errorResponse);
-                }
                 user.dtFechaModificacion = _tzProvider.GetCurrentTimeInZone();
                 bool update = await _usuarioRepository.ChangePassword(user);
                 var response = _presenterResponse.Present(update);

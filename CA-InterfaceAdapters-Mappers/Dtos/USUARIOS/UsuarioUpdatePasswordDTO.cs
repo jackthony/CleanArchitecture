@@ -9,11 +9,8 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.USUARIOS
     public class UsuarioUpdatePasswordDTO
     {
         public int nIdUsuario { get; set; }
-        public string antiguaClave { get; set; }
         public string nuevaClave { get; set; }
         public string repetirClave { get; set; }
-        public int? sUsuarioModificacion { get; set; }
-        public DateTime? dtFechaModificacion { get; set; }
-        public bool? bCambioClave { get; set; }
+        public int? nUsuarioModificacion { get; set; }
     }
 }

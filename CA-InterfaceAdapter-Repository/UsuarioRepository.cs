@@ -175,18 +175,24 @@ namespace CA_InterfaceAdapter_Repository
             model.sContrasena = entity.sContrasena;
             model.nUsuarioModificacion = entity.nUsuarioModificacion;
             model.dtFechaModificacion = entity.dtFechaModificacion;
-            model.sUsuarioModificacion = entity.sUsuarioModificacion;
+            model.nUsuarioModificacion = entity.nUsuarioModificacion;
 
             _dbContext.Usuarios.Update(model);
             return await _dbContext.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> ValidarPassword(UsuarioEntity entity)
+        public async Task<bool> ChangePassword(UsuarioEntity entity)
         {
-            var model = await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.nIdUsuario == entity.nIdUsuario
-                && u.sContrasena == entity.antiguaClave);
-            return model == null;
-        }
+            var model = await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.nIdUsuario == entity.nIdUsuario);
+            if (model == null) return false;
 
+            model.sContrasena = entity.nuevaClave;
+            model.dtFechaModificacion = entity.dtFechaModificacion;
+            model.nUsuarioModificacion = entity.nUsuarioModificacion;
+            model.bCambiarClave = false;
+
+            _dbContext.Usuarios.Update(model);
+            return await _dbContext.SaveChangesAsync() > 0;
+        }
     }
 }

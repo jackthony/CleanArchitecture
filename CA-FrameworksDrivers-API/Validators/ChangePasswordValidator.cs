@@ -8,17 +8,9 @@ namespace CA_FrameworksDrivers_API.Validators
     {
         public ChangePasswordValidator()
         {
-            RuleFor(x => x.sUsuarioModificacion)
+            RuleFor(x => x.nUsuarioModificacion)
             .GreaterThan(0)
             .WithMessage("El valor debe ser mayor que cero");
-
-            RuleFor(x => x.bCambioClave)
-                .Equal(true)
-                .WithMessage("El cambio de clave tiene que estar activado");
-
-            RuleFor(x => x.antiguaClave)
-                .NotEmpty().WithMessage("Ingrese la contraseña actual")
-                .MaximumLength(32).WithMessage("La contraseña actual no debe pasar los 32 caracteres");
 
             RuleFor(x => x.nuevaClave)
                 .NotEmpty().WithMessage("Ingrese la nueva contraseña")

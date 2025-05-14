@@ -17,7 +17,6 @@ namespace CA_FrameworksDrivers_API.Services
             services.AddScoped<IMapper<UsuarioCreateDTO, UsuarioEntity>, UsuarioCreateMapper>();
             services.AddScoped<IMapper<UsuarioUpdateDTO, UsuarioEntity>, UsuarioUpdateMapper>();
             services.AddScoped<IMapper<UsuarioUpdatePasswordDTO, UsuarioEntity>, UsuarioChangePasswordMapper>();
-            services.AddScoped<GetAllUsuariosUseCase<LstItemResponse<UsuarioModel>>>();
             services.AddScoped<AddUsuarioUseCase<UsuarioCreateDTO, ItemResponse<int>>>();
             services.AddScoped<EditUsuarioUseCase<UsuarioUpdateDTO, ItemResponse<bool>>>();
             services.AddScoped<DeleteUsuarioUseCase<ItemResponse<bool>>>();

@@ -32,5 +32,10 @@ namespace CA_EntrerpriseLayer
         public bool bCambiarClave { get; set; }
 
         public int? nUsuarioModificacion { get; set; }
+
+        public string antiguaClave { get; set; } = string.Empty;
+        public string nuevaClave { get; set; } = string.Empty;
+        public string repetirClave { get; set; } = string.Empty;
+        public bool? cambioClave { get; set; }
     }
 }
