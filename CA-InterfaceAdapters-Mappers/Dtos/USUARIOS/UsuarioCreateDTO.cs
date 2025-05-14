@@ -22,7 +22,7 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.USUARIOS
 
         public int nEstado { get; set; }
 
-        public string sUsuarioRegistro { get; set; } = string.Empty;
+        public int sUsuarioRegistro { get; set; }
 
     }
 }

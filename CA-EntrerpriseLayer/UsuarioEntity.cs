@@ -26,11 +26,11 @@ namespace CA_EntrerpriseLayer
 
         public DateTime dtFechaRegistro { get; set; }
 
-        public string sUsuarioRegistro { get; set; } = string.Empty;
+        public int sUsuarioRegistro { get; set; }
 
         public DateTime? dtFechaModificacion { get; set; }
 
-        public string? sUsuarioModificacion { get; set; }
+        public int? sUsuarioModificacion { get; set; }
 
         public string antiguaClave { get; set; } = string.Empty;
         public string nuevaClave { get; set; } = string.Empty;

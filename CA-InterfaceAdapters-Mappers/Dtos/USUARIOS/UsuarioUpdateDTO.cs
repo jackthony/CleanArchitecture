@@ -18,6 +18,6 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.USUARIOS
 
         public DateTime? dtFechaModificacion { get; set; }
 
-        public string? sUsuarioModificacion { get; set; }
+        public int sUsuarioModificacion { get; set; }
     }
 }

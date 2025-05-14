@@ -12,7 +12,7 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.USUARIOS
         public string antiguaClave { get; set; }
         public string nuevaClave { get; set; }
         public string repetirClave { get; set; }
-        public string? sUsuarioModificacion { get; set; }
+        public int? sUsuarioModificacion { get; set; }
         public DateTime? dtFechaModificacion { get; set; }
         public bool? bCambioClave { get; set; }
     }
