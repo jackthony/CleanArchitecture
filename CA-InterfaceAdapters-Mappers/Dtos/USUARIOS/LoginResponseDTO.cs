@@ -13,5 +13,6 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.USUARIOS
         public string nombreCompleto { get; set; } = string.Empty;
         public string primerNombre { get; set; } = string.Empty;
         public string nombreVisual { get; set; } = string.Empty;
+        public string sessionState { get; set; } = string.Empty;
     }
 }

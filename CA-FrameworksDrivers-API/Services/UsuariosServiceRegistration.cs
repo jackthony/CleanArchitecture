@@ -16,7 +16,6 @@ namespace CA_FrameworksDrivers_API.Services
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IMapper<UsuarioCreateDTO, UsuarioEntity>, UsuarioCreateMapper>();
             services.AddScoped<IMapper<UsuarioUpdateDTO, UsuarioEntity>, UsuarioUpdateMapper>();
-            services.AddScoped<GetAllUsuariosUseCase<LstItemResponse<UsuarioModel>>>();
             services.AddScoped<AddUsuarioUseCase<UsuarioCreateDTO, ItemResponse<int>>>();
             services.AddScoped<EditUsuarioUseCase<UsuarioUpdateDTO, ItemResponse<bool>>>();
             services.AddScoped<DeleteUsuarioUseCase<ItemResponse<bool>>>();
@@ -25,6 +24,8 @@ namespace CA_FrameworksDrivers_API.Services
             services.AddScoped<IMapper<UsuarioModel, LoginResponseDTO>, LoginResponseMapper>();
             services.AddScoped<ChangePasswordByAdminUseCase<ChangePasswordRequestDTO, ItemResponse<bool>>>();
             services.AddScoped<IMapper<ChangePasswordRequestDTO, UsuarioEntity>, ChangePasswordMapper>();
+            services.AddScoped<GetAllUsuariosUseCase<UsuarioResponseDTO, LstItemResponse<UsuarioResponseDTO>>>();
+            services.AddScoped<IMapper<ItemsPaginatorEntity<UsuarioModel>, ItemsPaginatorEntity<UsuarioResponseDTO>>, UsuarioResponseMapper>();
         }
     }
 }

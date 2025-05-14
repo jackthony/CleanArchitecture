@@ -1,4 +1,5 @@
 ﻿using CA_ApplicationLayer.EMP_Empresa;
+using CA_EntrerpriseLayer;
 using CA_InterfaceAdapters_Models;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -9,15 +10,17 @@ using System.Threading.Tasks;
 
 namespace CA_ApplicationLayer.Usuarios
 {
-    public class GetAllUsuariosUseCase<TOutput>
+    public class GetAllUsuariosUseCase<Tentity, TOutput>
     {
         private readonly IUsuarioRepository _usuarioRepository;
-        private readonly ILstPagPresenterResponse<UsuarioModel, TOutput> _presenterResponse;
+        private readonly IMapper<ItemsPaginatorEntity<UsuarioModel>, ItemsPaginatorEntity<Tentity>> _mapper;
+        private readonly ILstPagPresenterResponse<Tentity, TOutput> _presenterResponse;
 
-        public GetAllUsuariosUseCase(IUsuarioRepository usuarioRepository, ILstPagPresenterResponse<UsuarioModel, TOutput> presenterResponse)
+        public GetAllUsuariosUseCase(IUsuarioRepository usuarioRepository, ILstPagPresenterResponse<Tentity, TOutput> presenterResponse, IMapper<ItemsPaginatorEntity<UsuarioModel>, ItemsPaginatorEntity<Tentity>> mapper)
         {
             _usuarioRepository = usuarioRepository;
             _presenterResponse = presenterResponse;
+            _mapper = mapper;
         }
 
         public async Task<IResult> ExecuteAsync(int pageIndex, int pageSize, string? paramSearch)
@@ -25,7 +28,8 @@ namespace CA_ApplicationLayer.Usuarios
             try
             {
                 var usuario = await _usuarioRepository.GetAllAsyncPagination(pageIndex, pageSize, paramSearch);
-                var response = _presenterResponse.Present(usuario);
+                var userDto = _mapper.ToEntity(usuario);
+                var response = _presenterResponse.Present(userDto);
 
                 return Results.Ok(response);
             }

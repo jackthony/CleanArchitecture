@@ -20,7 +20,8 @@ namespace CA_InterfaceAdapters_Mappers.USUARIOS
             email = model.sCorreoElectronico,
             nombreCompleto = model.sNombreCompleto,
             primerNombre = LoginHelper.ObtenerPrimerNombre(model.sNombres),
-            nombreVisual = LoginHelper.ObtenerNombreVisual(model.sNombres, model.sApellidoPaterno)
+            nombreVisual = LoginHelper.ObtenerNombreVisual(model.sNombres, model.sApellidoPaterno),
+            sessionState = model.bCambiarClave ? "FORCE_PASSWORD_UPDATE" : "ACTIVE"
         };
     }
 }

@@ -10,7 +10,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
     {
         public static void MapUsuariosEndpoints(this WebApplication app)
         {
-            app.MapGet("Usuario/GetByPagination", async (int pageIndex, int pageSize, string? fullName, GetAllUsuariosUseCase<LstItemResponse<UsuarioModel>> useCase) =>
+            app.MapGet("Usuario/GetByPagination", async (int pageIndex, int pageSize, string? fullName, GetAllUsuariosUseCase<UsuarioResponseDTO, LstItemResponse<UsuarioResponseDTO>> useCase) =>
             {
                 return await useCase.ExecuteAsync(pageIndex, pageSize, fullName);
             })
