@@ -36,7 +36,11 @@ namespace CA_InterfaceAdapter_Repository
                 sDepartamento = entity.sDepartamento,
                 sDireccion = entity.sDireccion,
                 sTelefono = entity.sTelefono,
+                sTelefonoSecundario = entity.sTelefonoSecundario,
+                sTelefonoTerciario = entity.sTelefonoTerciario,
                 sCorreo = entity.sCorreo,
+                sCorreoSecundario = entity.sCorreoSecundario,
+                sCorreoTerciario = entity.sCorreoTerciario,
                 nCargo = entity.nCargo,
                 nTipoDirector = entity.nTipoDirector,
                 sProfesion = entity.sProfesion,
@@ -68,7 +72,11 @@ namespace CA_InterfaceAdapter_Repository
             directorModel.sDepartamento = entity.sDepartamento;
             directorModel.sDireccion = entity.sDireccion;
             directorModel.sTelefono = entity.sTelefono;
+            directorModel.sTelefonoSecundario = entity.sTelefonoSecundario;
+            directorModel.sTelefonoTerciario = entity.sTelefonoTerciario;
             directorModel.sCorreo = entity.sCorreo;
+            directorModel.sCorreoSecundario = entity.sCorreoSecundario;
+            directorModel.sCorreoTerciario = entity.sCorreoTerciario;
             directorModel.nCargo = entity.nCargo;
             directorModel.nTipoDirector = entity.nTipoDirector;
             directorModel.sProfesion = entity.sProfesion;
@@ -138,7 +146,11 @@ namespace CA_InterfaceAdapter_Repository
                             sDepartamento = director.sDepartamento,
                             sDireccion = director.sDireccion,
                             sTelefono = director.sTelefono,
+                            sTelefonoSecundario = director.sTelefonoSecundario,
+                            sTelefonoTerciario = director.sTelefonoTerciario,
                             sCorreo = director.sCorreo,
+                            sCorreoSecundario = director.sCorreoSecundario,
+                            sCorreoTerciario = director.sCorreoTerciario,
                             nCargo = director.nCargo,
                             nTipoDirector = director.nTipoDirector,
                             sProfesion = director.sProfesion,

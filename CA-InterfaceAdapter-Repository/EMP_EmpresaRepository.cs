@@ -165,7 +165,37 @@ namespace CA_InterfaceAdapter_Repository
 
         public async Task<EMP_EmpresaModel> GetById(int id)
         {
-            var empresa = await _dbContext.Empresas.FirstOrDefaultAsync(e => e.nIdEmpresa == id);
+            var empresa = await _dbContext.Empresas
+            .Where(e => e.nIdEmpresa == id)
+            .Select(e => new EMP_EmpresaModel
+            {
+            nIdEmpresa = e.nIdEmpresa,
+            sRuc = e.sRuc,
+            sRazonSocial = e.sRazonSocial,
+            nIdProponente = e.nIdProponente,
+            nIdRubroNegocio = e.nIdRubroNegocio,
+            sIdDepartamento = e.sIdDepartamento,
+            sIdProvincia = e.sIdProvincia,
+            sIdDistrito = e.sIdDistrito,
+            sDireccion = e.sDireccion,
+            sComentario = e.sComentario,
+            mIngresosUltimoAnio = e.mIngresosUltimoAnio,
+            mUtilidadUltimoAnio = e.mUtilidadUltimoAnio,
+            mConformacionCapitalSocial = e.mConformacionCapitalSocial,
+            bRegistradoMercadoValores = e.bRegistradoMercadoValores,
+            bActivo = e.bActivo,
+            dtFechaRegistro = e.dtFechaRegistro,
+            nUsuarioRegistro = e.nUsuarioRegistro,
+            dtFechaModificacion = e.dtFechaModificacion,
+            nUsuarioModificacion = e.nUsuarioModificacion,
+
+            // Propiedad calculada: total de miembros/directores asociados
+            nNumeroMiembros = _dbContext.Director.Count(d => d.nIdEmpresa == e.nIdEmpresa),
+
+            // Aquí puedes mapear también las propiedades [NotMapped] si tienes las tablas relacionadas
+            // Ejemplo para sDescripcionRubro, sNombreMinisterio, sProvinciaDescripcion si deseas
+        })
+        .FirstOrDefaultAsync();
 
             return empresa;
         }
