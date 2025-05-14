@@ -29,6 +29,7 @@ builder.Services.AddSwaggerGen();
 
 //validadores
 builder.Services.AddValidatorsFromAssemblyContaining<BeerValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<ChangePasswordValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 
@@ -68,7 +69,7 @@ builder.Services.AddConstanteServices();
 builder.Services.AddCatMinisterioServices();
 builder.Services.AddDirDirectorServices();
 builder.Services.AddUsuariosServices();
-
+builder.Services.AddExeptionLogServices();
 
 //builder.Services.AddScoped<IRepository<Beer>, Repository>();
 builder.Services.AddScoped<IPresenter<Beer, BeerViewModel>, BeerPresenter>();
@@ -108,6 +109,7 @@ app.MapConstanteEndpoints();
 app.MapCatMinisterioEndpoints();
 app.MapDirDirectorioEndpoints();
 app.MapUsuariosEndpoints();
+app.MapExeptionsLogEndpoints();
 
 app.Run();
 

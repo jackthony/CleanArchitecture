@@ -11,6 +11,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
         public static void MapUsuariosEndpoints(this WebApplication app)
         {
             app.MapGet("Usuario/GetByPagination", async (int pageIndex, int pageSize, string? fullName, GetAllUsuariosUseCase<UsuarioResponseDTO, LstItemResponse<UsuarioResponseDTO>> useCase) =>
+            app.MapGet("Usuario/GetByPagination", async (int pageIndex, int pageSize, string? fullName, GetAllUsuariosUseCase<LstItemResponse<UsuarioModel>> useCase) =>
             {
                 return await useCase.ExecuteAsync(pageIndex, pageSize, fullName);
             })
@@ -56,6 +57,14 @@ namespace CA_FrameworksDrivers_API.Endpoints
             })
             .WithTags("Usuario")
             .WithName("DeleteUsuario")
+            .WithOpenApi();
+
+            app.MapPut("Usuario/ChangePassword", async (UsuarioUpdatePasswordDTO request, ChangePasswordUseCase<UsuarioUpdatePasswordDTO, ItemResponse<bool>> useCase) =>
+            {
+                return await useCase.ExecuteAsync(request);
+            })
+            .WithTags("Usuario")
+            .WithName("ChangePassword")
             .WithOpenApi();
 
         //    app.MapGet("Usuario/GetAll", async (GetAllUsuariosUseCase<ItemResponse<UsuarioModel>> useCase) =>

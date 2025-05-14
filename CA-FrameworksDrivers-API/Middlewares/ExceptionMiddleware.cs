@@ -24,7 +24,7 @@ namespace CA_FrameworksDrivers_API.Middlewares
                 await HandleExceptionAsync(context, ex);
             }
         }
-        private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
+        /*private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             //_logger.LogError(exception, "An unhandled exception occurred while processing the request.");
 
@@ -41,6 +41,29 @@ namespace CA_FrameworksDrivers_API.Middlewares
             response.StatusCode = (int)statusCode;
             await response.WriteAsync(result);
 
+        }*/
+
+        private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
+        {
+            var response = context.Response;
+            response.ContentType = "application/json";
+
+            var statusCode = HttpStatusCode.InternalServerError;
+            var errorMessage = $"[{DateTime.Now}] {exception.Message} {Environment.NewLine}{exception.StackTrace}{Environment.NewLine}";
+
+            var logFilePath = Path.Combine(AppContext.BaseDirectory, "Logs", "exceptions.txt");
+            Directory.CreateDirectory(Path.GetDirectoryName(logFilePath)!);
+            await File.AppendAllTextAsync(logFilePath, errorMessage);
+
+            var result = JsonSerializer.Serialize(new
+            {
+                StatusCode = (int)statusCode,
+                Message = "Internal Server Error. Please try again later."
+            });
+
+            response.StatusCode = (int)statusCode;
+            await response.WriteAsync(result);
         }
+
     }
 }

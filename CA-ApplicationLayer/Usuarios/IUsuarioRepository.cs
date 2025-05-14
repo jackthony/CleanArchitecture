@@ -10,6 +10,8 @@ namespace CA_ApplicationLayer.Usuarios
 {
     public interface IUsuarioRepository : IRepository<UsuarioEntity, UsuarioModel>
     {
+        Task<bool> ChangePassword(UsuarioEntity entity);
+        Task<bool> ValidarPassword(UsuarioEntity currentPassword);
         Task<UsuarioModel> GetByEmailAsync(UsuarioEntity entity);
         Task<bool> ChangePasswordAdminAsync(UsuarioEntity entity);
     }
