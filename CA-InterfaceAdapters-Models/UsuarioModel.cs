@@ -29,11 +29,11 @@ namespace CA_InterfaceAdapters_Models
 
         public DateTime dtFechaRegistro { get; set; }
 
-        public string sUsuarioRegistro { get; set; } = string.Empty;
+        public int nUsuarioRegistro { get; set; }
 
         public DateTime? dtFechaModificacion { get; set; }
 
-        public string? sUsuarioModificacion { get; set; }
+        public int? nUsuarioModificacion { get; set; }
 
         [NotMapped]
         public string? sCargoDescripcion { get; set; }

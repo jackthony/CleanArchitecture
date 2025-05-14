@@ -30,9 +30,9 @@ namespace CA_InterfaceAdapters_Models
         public bool bRegistradoMercadoValores { get; set; }
         public bool bActivo { get; set; }
         public DateTime dtFechaRegistro { get; set; }
-        public string sUsuarioRegistro { get; set; }
+        public int nUsuarioRegistro { get; set; }
         public DateTime? dtFechaModificacion { get; set; }
-        public string? sUsuarioModificacion { get; set; }
+        public int? nUsuarioModificacion { get; set; }
 
         [NotMapped]
         public string? sDescripcionRubro { get; set; }

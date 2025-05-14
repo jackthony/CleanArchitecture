@@ -33,7 +33,8 @@ namespace CA_InterfaceAdapter_Repository
                 sCorreoElectronico = entity.sCorreoElectronico,
                 nEstado = entity.nEstado,
                 dtFechaRegistro = entity.dtFechaRegistro,
-                sUsuarioRegistro = entity.sUsuarioRegistro
+                nUsuarioRegistro = entity.nUsuarioRegistro,
+                bCambiarClave = true
             };
 
             await _dbContext.Usuarios.AddAsync(model);
@@ -50,7 +51,7 @@ namespace CA_InterfaceAdapter_Repository
             model.nIdRol = entity.nIdRol;
             model.nEstado = entity.nEstado;
             model.dtFechaModificacion = entity.dtFechaModificacion;
-            model.sUsuarioModificacion = entity.sUsuarioModificacion;
+            model.nUsuarioModificacion = entity.nUsuarioModificacion;
 
             _dbContext.Usuarios.Update(model);
             return await _dbContext.SaveChangesAsync() > 0;
@@ -129,9 +130,9 @@ namespace CA_InterfaceAdapter_Repository
                             sCorreoElectronico = usuario.sCorreoElectronico,
                             nEstado = usuario.nEstado,
                             dtFechaRegistro = usuario.dtFechaRegistro,
-                            sUsuarioRegistro = usuario.sUsuarioRegistro,
+                            nUsuarioRegistro = usuario.nUsuarioRegistro,
                             dtFechaModificacion = usuario.dtFechaModificacion,
-                            sUsuarioModificacion = usuario.sUsuarioModificacion,
+                            nUsuarioModificacion = usuario.nUsuarioModificacion,
                             sCargoDescripcion = consCargo.sConDescripcion,
                             sPerfilDescripcion = consPerfil.sConDescripcion,
                             sEstadoDescripcion = consUser.sConDescripcion
@@ -172,7 +173,8 @@ namespace CA_InterfaceAdapter_Repository
 
             model.bCambiarClave = true;
             model.sContrasena = entity.sContrasena;
-            model.sUsuarioModificacion = entity.sUsuarioModificacion;
+            model.nUsuarioModificacion = entity.nUsuarioModificacion;
+            model.dtFechaModificacion = entity.dtFechaModificacion;
 
             _dbContext.Usuarios.Update(model);
             return await _dbContext.SaveChangesAsync() > 0;

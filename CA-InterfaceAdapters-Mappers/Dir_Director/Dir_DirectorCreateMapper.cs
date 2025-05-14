@@ -35,9 +35,9 @@ namespace CA_InterfaceAdapters_Mappers.Dir_Director
                 nEspecialidad = dto.nEspecialidad,
                 dFechaNombramiento = dto.dFechaNombramiento,
                 dFechaDesignacion = dto.dFechaDesignacion,
-                dFechaRenuncia = dto.dFechaRenuncia,
+                //dFechaRenuncia = dto.dFechaRenuncia,
                 sComentario = dto.sComentario,
-                sUsuarioRegistro = dto.sUsuarioRegistro,
+                nUsuarioRegistro = dto.nUsuarioRegistro,
             };
     }
 }

@@ -20,7 +20,7 @@ namespace CA_InterfaceAdapters_Mappers.USUARIOS
                 nIdRol = dto.nIdRol,
                 nEstado = dto.nEstado,
                 dtFechaModificacion = dto.dtFechaModificacion,
-                sUsuarioModificacion = dto.sUsuarioModificacion,
+                nUsuarioModificacion = dto.nUsuarioModificacion,
             };
     }
 }

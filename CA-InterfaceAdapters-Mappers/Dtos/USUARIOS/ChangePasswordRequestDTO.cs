@@ -11,6 +11,6 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.USUARIOS
         public int user { get; set; }
         public string password { get; set; }
 
-        public string sUsuarioModificacion { get; set; }
+        public int nUsuarioModificacion { get; set; }
     }
 }

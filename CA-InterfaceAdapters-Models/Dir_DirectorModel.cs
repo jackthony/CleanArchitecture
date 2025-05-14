@@ -32,12 +32,12 @@ namespace CA_InterfaceAdapters_Models
         public int nEspecialidad { get; set; }
         public DateTime dFechaNombramiento { get; set; }
         public DateTime dFechaDesignacion { get; set; }
-        public DateTime dFechaRenuncia { get; set; }
+        public DateTime? dFechaRenuncia { get; set; }
         public string? sComentario { get; set; }
         public DateTime dtFechaRegistro { get; set; }
-        public string sUsuarioRegistro { get; set; }
+        public int nUsuarioRegistro { get; set; }
         public DateTime? dtFechaModificacion { get; set; }
-        public string? sUsuarioModificacion { get; set; }
+        public int? nUsuarioModificacion { get; set; }
 
         public string sNombreCompleto => $"{sNombres} {sApellidos}";
 

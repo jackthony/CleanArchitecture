@@ -22,8 +22,8 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.Dir_Director
         public int nEspecialidad { get; set; }
         public DateTime dFechaNombramiento { get; set; }
         public DateTime dFechaDesignacion { get; set; }
-        public DateTime dFechaRenuncia { get; set; }
+        //public DateTime dFechaRenuncia { get; set; }
         public string sComentario { get; set; }
-        public string sUsuarioModificacion { get; set; }
+        public int nUsuarioModificacion { get; set; }
     }
 }

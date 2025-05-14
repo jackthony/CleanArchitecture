@@ -24,7 +24,7 @@ namespace CA_InterfaceAdapters_Mappers.EMP_EMPRESA
                 mConformacionCapitalSocial = dto.mConformacionCapitalSocial,
                 bRegistradoMercadoValores = dto.bRegistradoMercadoValores,
                 bActivo = dto.bActivo,
-                sUsuarioRegistro = dto.sUsuarioRegistro
+                nUsuarioRegistro = dto.nUsuarioRegistro
             };
     }
 }

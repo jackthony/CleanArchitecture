@@ -44,10 +44,10 @@ namespace CA_InterfaceAdapter_Repository
                 nEspecialidad = entity.nEspecialidad,
                 dFechaNombramiento = entity.dFechaNombramiento,
                 dFechaDesignacion = entity.dFechaDesignacion,
-                dFechaRenuncia = entity.dFechaRenuncia,
+                //dFechaRenuncia = entity.dFechaRenuncia,
                 sComentario = entity.sComentario,
                 dtFechaRegistro = entity.dtFechaRegistro,
-                sUsuarioRegistro = entity.sUsuarioRegistro
+                nUsuarioRegistro = entity.nUsuarioRegistro
             };
 
             await _dbContext.Director.AddAsync(directorModel);
@@ -76,10 +76,10 @@ namespace CA_InterfaceAdapter_Repository
             directorModel.nEspecialidad = entity.nEspecialidad;
             directorModel.dFechaNombramiento = entity.dFechaNombramiento;
             directorModel.dFechaDesignacion = entity.dFechaDesignacion;
-            directorModel.dFechaRenuncia = entity.dFechaRenuncia;
+            //directorModel.dFechaRenuncia = entity.dFechaRenuncia;
             directorModel.sComentario = entity.sComentario;
             directorModel.dtFechaModificacion = entity.dtFechaModificacion;
-            directorModel.sUsuarioModificacion = entity.sUsuarioModificacion;
+            directorModel.nUsuarioModificacion = entity.nUsuarioModificacion;
 
             _dbContext.Director.Update(directorModel);
 
@@ -149,9 +149,9 @@ namespace CA_InterfaceAdapter_Repository
                             dFechaRenuncia = director.dFechaRenuncia,
                             sComentario = director.sComentario,
                             dtFechaRegistro = director.dtFechaRegistro,
-                            sUsuarioRegistro = director.sUsuarioRegistro,
+                            nUsuarioRegistro = director.nUsuarioRegistro,
                             dtFechaModificacion = director.dtFechaModificacion,
-                            sUsuarioModificacion = director.sUsuarioModificacion,
+                            nUsuarioModificacion = director.nUsuarioModificacion,
                             sTipoDocumentoDescripcion = constante.sConDescripcion,
                             sCargoDescripcion = cargo.sConDescripcion,
                             sTipoDirectorDescripcion = tipoDirector.sConDescripcion

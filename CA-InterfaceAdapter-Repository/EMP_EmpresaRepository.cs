@@ -42,7 +42,7 @@ namespace CA_InterfaceAdapter_Repository
                 bRegistradoMercadoValores = entity.bRegistradoMercadoValores,
                 bActivo = entity.bActivo,
                 dtFechaRegistro = entity.dtFechaRegistro,
-                sUsuarioRegistro = entity.sUsuarioRegistro
+                nUsuarioRegistro = entity.nUsuarioRegistro
             };
 
             await _dbContext.Empresas.AddAsync(empresaModel);
@@ -67,7 +67,7 @@ namespace CA_InterfaceAdapter_Repository
             empresaModel.bRegistradoMercadoValores = entity.bRegistradoMercadoValores;
             empresaModel.bActivo = entity.bActivo;
             empresaModel.dtFechaModificacion = entity.dtFechaModificacion;
-            empresaModel.sUsuarioModificacion = entity.sUsuarioModificacion;
+            empresaModel.nUsuarioModificacion = entity.nUsuarioModificacion;
 
             _dbContext.Empresas.Update(empresaModel);
 
@@ -126,9 +126,9 @@ namespace CA_InterfaceAdapter_Repository
                             bRegistradoMercadoValores = empresa.bRegistradoMercadoValores,
                             bActivo = empresa.bActivo,
                             dtFechaRegistro = empresa.dtFechaRegistro,
-                            sUsuarioRegistro = empresa.sUsuarioRegistro,
+                            nUsuarioRegistro = empresa.nUsuarioRegistro,
                             dtFechaModificacion = empresa.dtFechaModificacion,
-                            sUsuarioModificacion = empresa.sUsuarioModificacion,
+                            nUsuarioModificacion = empresa.nUsuarioModificacion,
                             sDescripcionRubro = constante.sConDescripcion,
                             sNombreMinisterio = ministerio.sNombreMinisterio,
                             sProvinciaDescripcion = provincia.sName

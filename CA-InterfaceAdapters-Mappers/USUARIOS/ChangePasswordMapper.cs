@@ -16,7 +16,7 @@ namespace CA_InterfaceAdapters_Mappers.USUARIOS
             {
                 nIdUsuario = dto.user,
                 sContrasena = dto.password,
-                sUsuarioModificacion = dto.sUsuarioModificacion
+                nUsuarioModificacion = dto.nUsuarioModificacion
             };
     }
 }

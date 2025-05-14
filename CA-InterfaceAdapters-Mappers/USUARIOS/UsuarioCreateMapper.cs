@@ -23,7 +23,7 @@ namespace CA_InterfaceAdapters_Mappers.USUARIOS
                 nIdRol = dto.nIdRol,
                 sCorreoElectronico = dto.sCorreoElectronico,
                 nEstado = dto.nEstado,
-                sUsuarioRegistro = dto.sUsuarioRegistro
+                nUsuarioRegistro = dto.nUsuarioRegistro
             };
     }
 }

@@ -25,8 +25,8 @@ namespace CA_EntrerpriseLayer
         public bool bRegistradoMercadoValores { get; set; }
         public bool bActivo { get; set; }
         public DateTime dtFechaRegistro { get; set; }
-        public string sUsuarioRegistro { get; set; }
+        public int nUsuarioRegistro { get; set; }
         public DateTime dtFechaModificacion { get; set; }
-        public string sUsuarioModificacion { get; set; }
+        public int nUsuarioModificacion { get; set; }
     }
 }

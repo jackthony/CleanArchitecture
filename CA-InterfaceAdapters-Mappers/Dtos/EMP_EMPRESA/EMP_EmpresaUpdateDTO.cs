@@ -19,6 +19,6 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.EMP_EMPRESA
         public decimal mConformacionCapitalSocial { get; set; }
         public bool bRegistradoMercadoValores { get; set; }
         public bool bActivo { get; set; }
-        public string sUsuarioModificacion { get; set; }
+        public int nUsuarioModificacion { get; set; }
     }
 }
