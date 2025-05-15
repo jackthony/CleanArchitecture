@@ -42,12 +42,30 @@ using Microsoft.EntityFrameworkCore;
             }
 
             var totalRows = await query.CountAsync();
+            List<RolModel> lstItem;
 
-            var lstItem = await query
-                .OrderBy(r => r.nIdRol)
-                .Skip((pageIndex - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
+            if (pageSize == 0)
+            {
+                // Traer todos los registros sin paginar
+                lstItem = await query.OrderBy(r => r.nIdRol).ToListAsync();
+                pageIndex = 1;
+                pageSize = totalRows;
+            }
+            else
+            {
+                // Paginación normal
+                lstItem = await query
+                    .OrderBy(r => r.nIdRol)
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+            }
+
+            //var lstItem = await query
+            //    .OrderBy(r => r.nIdRol)
+            //    .Skip((pageIndex - 1) * pageSize)
+            //    .Take(pageSize)
+            //    .ToListAsync();
 
             return new ItemsPaginatorEntity<RolModel>()
             {
