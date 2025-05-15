@@ -18,13 +18,43 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("GetAllUsuarios")
             .WithOpenApi();
 
-            app.MapPost("Usuario/Login", async (LoginRequestDTO request, LoginUsuarioUseCase<LoginRequestDTO, ItemResponse<LoginResponseDTO>, LoginResponseDTO> useCase) =>
+            //app.MapPost("Usuario/Login", async (LoginRequestDTO request, LoginUsuarioUseCase<LoginRequestDTO, ItemResponse<LoginResponseDTO>, LoginResponseDTO> useCase) =>
+            //{
+            //    return await useCase.ExecuteAsync(request);
+            //})
+            //.WithTags("Usuario")
+            //.WithName("LoginUser")
+            //.WithOpenApi();
+
+            app.MapPost("Usuario/Login", async (
+    LoginRequestDTO request,
+    LoginUsuarioUseCase<LoginRequestDTO> useCase
+) =>
             {
-                return await useCase.ExecuteAsync(request);
-            })
-            .WithTags("Usuario")
-            .WithName("LoginUser")
-            .WithOpenApi();
+                var usuarioLoginEntity = await useCase.ExecuteAsync(request);
+
+                if (usuarioLoginEntity == null)
+                    return Results.BadRequest(new
+                    {
+                        IsSuccess = false,
+                        Errors = new List<string> { "Credenciales inválidas" }
+                    });
+
+                var responseDto = new LoginResponseDTO
+                {
+                    usuario = usuarioLoginEntity.nIdUsuario,
+                    email = usuarioLoginEntity.sCorreoElectronico,
+                    nombreCompleto = usuarioLoginEntity.sNombreCompleto,
+                    permissions = usuarioLoginEntity.Permissions
+                };
+
+                return Results.Ok(new ItemResponse<LoginResponseDTO>
+                {
+                    Item = responseDto,
+                    IsSuccess = true
+                });
+            });
+
 
             app.MapPost("Usuario/ChangePassAdmin", async (ChangePasswordRequestDTO request, ChangePasswordByAdminUseCase<ChangePasswordRequestDTO, ItemResponse<bool>> useCase) =>
             {

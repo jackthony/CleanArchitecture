@@ -21,13 +21,15 @@ namespace CA_FrameworksDrivers_API.Services
             services.AddScoped<EditUsuarioUseCase<UsuarioUpdateDTO, ItemResponse<bool>>>();
             services.AddScoped<DeleteUsuarioUseCase<ItemResponse<bool>>>();
             services.AddScoped<ChangePasswordUseCase<UsuarioUpdatePasswordDTO, ItemResponse<bool>>>();
-            services.AddScoped<LoginUsuarioUseCase<LoginRequestDTO, ItemResponse<LoginResponseDTO>, LoginResponseDTO>>();
+            //services.AddScoped<LoginUsuarioUseCase<LoginRequestDTO, ItemResponse<LoginResponseDTO>, LoginResponseDTO>>();
             services.AddScoped<IMapper<LoginRequestDTO, UsuarioEntity>, LoginRequestMapper>();
             services.AddScoped<IMapper<UsuarioModel, LoginResponseDTO>, LoginResponseMapper>();
             services.AddScoped<ChangePasswordByAdminUseCase<ChangePasswordRequestDTO, ItemResponse<bool>>>();
             services.AddScoped<IMapper<ChangePasswordRequestDTO, UsuarioEntity>, ChangePasswordMapper>();
             services.AddScoped<GetAllUsuariosUseCase<UsuarioResponseDTO, LstItemResponse<UsuarioResponseDTO>>>();
             services.AddScoped<IMapper<ItemsPaginatorEntity<UsuarioModel>, ItemsPaginatorEntity<UsuarioResponseDTO>>, UsuarioResponseMapper>();
+            services.AddScoped<LoginUsuarioUseCase<LoginRequestDTO>>();
+
         }
     }
 }

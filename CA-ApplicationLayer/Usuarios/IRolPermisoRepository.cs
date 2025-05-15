@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CA_EntrerpriseLayer;
 using CA_InterfaceAdapters_Models;
 
 namespace CA_ApplicationLayer.Usuarios
 {
     public interface IRolPermisoRepository
     {
-        Task<IEnumerable<RolPermisoModel>> GetPermisosPorRolAsync(int nIdRol);
+        Task<IEnumerable<PermisosPorRolEntity>> GetPermisosPorRolAsync(int nIdRol);
     }
 }

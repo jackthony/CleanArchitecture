@@ -1,5 +1,7 @@
 ﻿using CA_ApplicationLayer.Usuarios;
+using CA_EntrerpriseLayer;
 using CA_InterfaceAdapters_Data;
+using CA_InterfaceAdapters_Mappers.Dtos.USUARIOS;
 using CA_InterfaceAdapters_Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,13 +19,25 @@ namespace CA_InterfaceAdapter_Repository
         {
             _dbContext = dbContext;
         }
-        public async Task<IEnumerable<RolPermisoModel>> GetPermisosPorRolAsync(int nIdRol)
+        public async Task<IEnumerable<PermisosPorRolEntity>> GetPermisosPorRolAsync(int nIdRol)
         {
-            var query = _dbContext.RolPermisos.AsQueryable().Where(data => data.nIdRol == nIdRol);
+            var query = from rp in _dbContext.RolPermisos
+                        join p in _dbContext.Permisos on rp.nIdPermiso equals p.nIdPermiso
+                        join pr in _dbContext.Procesos on p.nIdProceso equals pr.nIdProceso
+                        where rp.nIdRol == nIdRol && p.bActivo && !p.bEliminado && pr.bActivo && !pr.bEliminado
+                        select new { pr.sNombreProceso, p.sNombrePermiso };
 
-            var lstItem = await query.ToListAsync();
+            var list = await query.ToListAsync();
 
-            return lstItem;
+            var grouped = list
+                .GroupBy(x => x.sNombreProceso)
+                .Select(g => new PermisosPorRolEntity
+                {
+                    Module = g.Key,
+                    Actions = g.Select(p => p.sNombrePermiso).Distinct().ToList()
+                }).ToList();
+
+            return grouped;
         }
     }
 }
