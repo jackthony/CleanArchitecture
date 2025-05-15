@@ -1,5 +1,6 @@
 ﻿using CA_ApplicationLayer.Usuarios;
 using CA_EntrerpriseLayer;
+using CA_EntrerpriseLayer.Helpers;
 using CA_InterfaceAdapters_Mappers.Contracts;
 using CA_InterfaceAdapters_Mappers.Dtos.USUARIOS;
 using CA_InterfaceAdapters_Models;
@@ -26,10 +27,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
             //.WithName("LoginUser")
             //.WithOpenApi();
 
-            app.MapPost("Usuario/Login", async (
-    LoginRequestDTO request,
-    LoginUsuarioUseCase<LoginRequestDTO> useCase
-) =>
+            app.MapPost("Usuario/Login", async (LoginRequestDTO request,LoginUsuarioUseCase<LoginRequestDTO> useCase) =>
             {
                 var usuarioLoginEntity = await useCase.ExecuteAsync(request);
 
@@ -45,8 +43,16 @@ namespace CA_FrameworksDrivers_API.Endpoints
                     usuario = usuarioLoginEntity.nIdUsuario,
                     email = usuarioLoginEntity.sCorreoElectronico,
                     nombreCompleto = usuarioLoginEntity.sNombreCompleto,
+                    primerNombre = LoginHelper.ObtenerPrimerNombre(usuarioLoginEntity.sNombres),
+                    nombreVisual = LoginHelper.ObtenerNombreVisual(usuarioLoginEntity.sNombres, usuarioLoginEntity.sApellidoPaterno),
+                    sessionState = usuarioLoginEntity.bCambiarClave ? "FORCE_PASSWORD_UPDATE" : "ACTIVE",
                     permissions = usuarioLoginEntity.Permissions
                 };
+
+                /*
+            
+            sessionState = model.bCambiarClave ? "FORCE_PASSWORD_UPDATE" : "ACTIVE"
+                 */
 
                 return Results.Ok(new ItemResponse<LoginResponseDTO>
                 {

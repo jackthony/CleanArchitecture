@@ -42,7 +42,10 @@ namespace CA_ApplicationLayer.Usuarios
                 nIdUsuario = userModel.nIdUsuario,
                 sCorreoElectronico = userModel.sCorreoElectronico,
                 sNombreCompleto = $"{userModel.sApellidoPaterno} {userModel.sApellidoMaterno} {userModel.sNombres}",
+                sNombres = userModel.sNombres,
+                sApellidoPaterno = userModel.sApellidoPaterno,
                 nIdRol = userModel.nIdRol,
+                bCambiarClave = userModel.bCambiarClave,
                 Permissions = permisos.ToList()
             };
         }

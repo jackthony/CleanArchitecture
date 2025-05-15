@@ -44,15 +44,33 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,                     // Hasta 5 intentos
+                maxRetryDelay: TimeSpan.FromSeconds(10), // Espera 10s entre intentos
+                errorNumbersToAdd: null               // Deja que EF maneje los errores transitorios conocidos
+            );
+        }));
+
 
 
 //dependencias
-builder.Services.AddDbContext<AppDbContext>(
-    options =>
-    {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); 
-    }
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,                     // Hasta 5 intentos
+                maxRetryDelay: TimeSpan.FromSeconds(10), // Espera 10s entre intentos
+                errorNumbersToAdd: null               // Deja que EF maneje los errores transitorios conocidos
+            );
+        }
+    )
 );
+    
 
 builder.Services.Configure<TimeZoneSettings>(builder.Configuration.GetSection(TimeZoneSettings.SectionName));
 builder.Services.AddSingleton<ITimeZoneInfoProvider, TimeZoneInfoProvider>();
