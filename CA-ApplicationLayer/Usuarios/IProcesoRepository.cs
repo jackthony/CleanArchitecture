@@ -7,5 +7,7 @@ using CA_InterfaceAdapters_Models;
 
 namespace CA_ApplicationLayer.Usuarios
 {
-    public interface IProcesoRepository : IRepositoryRead<ProcesoModel> { }
+    public interface IProcesoRepository : IRepositoryRead<ProcesoModel> {
+        //Task<IEnumerable<ProcesoModel>> GetAllByPermisoAsync(int nIdPermiso);
+    }
 }

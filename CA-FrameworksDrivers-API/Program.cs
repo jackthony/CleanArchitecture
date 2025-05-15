@@ -74,6 +74,7 @@ builder.Services.AddEmpDietaServices();
 builder.Services.AddRolesService();
 builder.Services.AddPermisosService();
 builder.Services.AddProcesosService();
+builder.Services.AddRolPermisosService();
 
 //builder.Services.AddScoped<IRepository<Beer>, Repository>();
 builder.Services.AddScoped<IPresenter<Beer, BeerViewModel>, BeerPresenter>();

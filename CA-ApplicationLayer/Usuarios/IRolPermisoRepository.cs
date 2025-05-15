@@ -9,6 +9,6 @@ namespace CA_ApplicationLayer.Usuarios
 {
     public interface IRolPermisoRepository
     {
-        Task<IEnumerable<PermisoModel>> GetPermisosPorRolAsync(int nIdRol);
+        Task<IEnumerable<RolPermisoModel>> GetPermisosPorRolAsync(int nIdRol);
     }
 }
