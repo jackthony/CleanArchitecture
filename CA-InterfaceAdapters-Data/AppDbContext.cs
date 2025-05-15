@@ -21,6 +21,11 @@ namespace CA_InterfaceAdapters_Data
         public DbSet<UsuarioModel> Usuarios { get; set; }
         public DbSet<ExeptionLogModel> ExeptionsLogs { get; set; }
         public DbSet<EMP_DietaModel> Dietas { get; set; }
+        // Nuevos DbSet para seguridad
+        public DbSet<RolModel> Roles { get; set; }
+        public DbSet<ProcesoModel> Procesos { get; set; }
+        public DbSet<PermisoModel> Permisos { get; set; }
+        public DbSet<RolPermisoModel> RolPermisos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +37,12 @@ namespace CA_InterfaceAdapters_Data
             modelBuilder.Entity<ExeptionLogModel>().ToTable("Exception_log");
 
             modelBuilder.Entity<ConstanteModel>().HasNoKey();
+            // Mapear nuevas tablas
+            modelBuilder.Entity<RolModel>().ToTable("ROL");
+            modelBuilder.Entity<ProcesoModel>().ToTable("PROCESO");
+            modelBuilder.Entity<PermisoModel>().ToTable("PERMISO");
+            modelBuilder.Entity<RolPermisoModel>().ToTable("ROL_PERMISO");
+
 
             modelBuilder.Entity<EMP_DietaModel>(entity =>
             {
@@ -51,6 +62,11 @@ namespace CA_InterfaceAdapters_Data
                       .HasColumnType("decimal(12,2)")
                       .IsRequired();
             });
+
+
+            // Configuración claves compuestas para RolPermiso
+            modelBuilder.Entity<RolPermisoModel>()
+                .HasKey(rp => new { rp.nIdRol, rp.nIdPermiso });
         }
     }
 }
