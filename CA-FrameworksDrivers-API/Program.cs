@@ -70,6 +70,7 @@ builder.Services.AddCatMinisterioServices();
 builder.Services.AddDirDirectorServices();
 builder.Services.AddUsuariosServices();
 builder.Services.AddExeptionLogServices();
+builder.Services.AddEmpDietaServices();
 
 //builder.Services.AddScoped<IRepository<Beer>, Repository>();
 builder.Services.AddScoped<IPresenter<Beer, BeerViewModel>, BeerPresenter>();
@@ -110,6 +111,7 @@ app.MapCatMinisterioEndpoints();
 app.MapDirDirectorioEndpoints();
 app.MapUsuariosEndpoints();
 app.MapExeptionsLogEndpoints();
+app.EmpDietaEndpoints();
 
 app.Run();
 

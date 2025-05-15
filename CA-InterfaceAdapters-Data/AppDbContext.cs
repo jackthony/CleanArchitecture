@@ -20,6 +20,7 @@ namespace CA_InterfaceAdapters_Data
         public DbSet<Dir_DirectorModel> Director { get; set; }
         public DbSet<UsuarioModel> Usuarios { get; set; }
         public DbSet<ExeptionLogModel> ExeptionsLogs { get; set; }
+        public DbSet<EMP_DietaModel> Dietas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +32,25 @@ namespace CA_InterfaceAdapters_Data
             modelBuilder.Entity<ExeptionLogModel>().ToTable("Exception_log");
 
             modelBuilder.Entity<ConstanteModel>().HasNoKey();
+
+            modelBuilder.Entity<EMP_DietaModel>(entity =>
+            {
+                entity.ToTable("EMP_DIETA");
+
+                // Clave primaria compuesta
+                entity.HasKey(e => new { e.sRUC, e.nTipoCargo });
+
+                entity.Property(e => e.sRUC)
+                      .HasMaxLength(11)
+                      .IsRequired();
+
+                entity.Property(e => e.nTipoCargo)
+                      .IsRequired();
+
+                entity.Property(e => e.mDieta)
+                      .HasColumnType("decimal(12,2)")
+                      .IsRequired();
+            });
         }
     }
 }
