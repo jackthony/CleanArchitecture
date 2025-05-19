@@ -108,9 +108,9 @@ namespace CA_InterfaceAdapter_Repository
                             on new { Codigo = 11, Valor = usuario.nIdCargo }
                             equals new { Codigo = consCargo.nConCodigo, Valor = consCargo.nConValor }
 
-                        join consPerfil in _dbContext.Constante
-                            on new { Codigo = 12, Valor = usuario.nIdRol }
-                            equals new { Codigo = consPerfil.nConCodigo, Valor = consPerfil.nConValor }
+                        join consPerfil in _dbContext.Roles
+                            on new { Codigo = usuario.nIdRol }
+                            equals new { Codigo = consPerfil.nIdRol }
 
                         join consUser in _dbContext.Constante
                             on new { Codigo = 10, Valor = usuario.nEstado }
@@ -134,7 +134,7 @@ namespace CA_InterfaceAdapter_Repository
                             dtFechaModificacion = usuario.dtFechaModificacion,
                             nUsuarioModificacion = usuario.nUsuarioModificacion,
                             sCargoDescripcion = consCargo.sConDescripcion,
-                            sPerfilDescripcion = consPerfil.sConDescripcion,
+                            sPerfilDescripcion = consPerfil.sNombreRol,
                             sEstadoDescripcion = consUser.sConDescripcion
                         };
 

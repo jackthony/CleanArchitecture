@@ -38,7 +38,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin", policy =>
     {
         // Aquí se define qué orígenes son permitidos.
-        policy.WithOrigins("http://localhost:4200")  // Define el origen permitido
+        policy.WithOrigins("*")  // Define el origen permitido
               .AllowAnyHeader()   // Permite cualquier encabezado en la solicitud
               .AllowAnyMethod();  // Permite cualquier método (GET, POST, PUT, DELETE, etc.)
     });
@@ -55,22 +55,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
             );
         }));
 
-
-
-//dependencias
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-        sqlOptions =>
-        {
-            sqlOptions.EnableRetryOnFailure(
-                maxRetryCount: 5,                     // Hasta 5 intentos
-                maxRetryDelay: TimeSpan.FromSeconds(10), // Espera 10s entre intentos
-                errorNumbersToAdd: null               // Deja que EF maneje los errores transitorios conocidos
-            );
-        }
-    )
-);
-    
 
 builder.Services.Configure<TimeZoneSettings>(builder.Configuration.GetSection(TimeZoneSettings.SectionName));
 builder.Services.AddSingleton<ITimeZoneInfoProvider, TimeZoneInfoProvider>();
