@@ -28,7 +28,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("InsertDirDirectorio")
             .WithOpenApi();
 
-            app.MapPut("Dir_Directorio/Update", async (Dir_DirectorUpdateDTO request, EditDirDirectorUseCase<Dir_DirectorUpdateDTO, ItemResponse<bool>> useCase) =>
+            app.MapPost("Dir_Directorio/Update", async (Dir_DirectorUpdateDTO request, EditDirDirectorUseCase<Dir_DirectorUpdateDTO, ItemResponse<bool>> useCase) =>
             {
                 return await useCase.ExecuteAsync(request);
             })
@@ -36,7 +36,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("UpdateDirDirectorio")
             .WithOpenApi();
 
-            app.MapDelete("Dir_Directorio/Delete/{nIdRegistro}", async (int nIdRegistro, DeleteDirDirectorUseCase<ItemResponse<bool>> useCase) =>
+            app.MapPost("Dir_Directorio/Delete/{nIdRegistro}", async (int nIdRegistro, DeleteDirDirectorUseCase<ItemResponse<bool>> useCase) =>
             {
                 return await useCase.ExecuteAsync(nIdRegistro);
             })

@@ -27,7 +27,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("InsertEmpEmpresa")
             .WithOpenApi();
 
-            app.MapPut("EMP_Empresa/Update", async (EMP_EmpresaUpdateDTO request, EditEmpEmpresaUseCase<EMP_EmpresaUpdateDTO, ItemResponse<bool>> useCase) =>
+            app.MapPost("EMP_Empresa/Update", async (EMP_EmpresaUpdateDTO request, EditEmpEmpresaUseCase<EMP_EmpresaUpdateDTO, ItemResponse<bool>> useCase) =>
             {
                 return await useCase.ExecuteAsync(request);
             })
@@ -35,7 +35,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("UpdateEmpEmpresa")
             .WithOpenApi();
 
-            app.MapDelete("EMP_Empresa/Delete/{idEmpresa}", async (int idEmpresa, DeleteEmpEmpresaUseCase<ItemResponse<bool>> useCase) =>
+            app.MapPost("EMP_Empresa/Delete/{idEmpresa}", async (int idEmpresa, DeleteEmpEmpresaUseCase<ItemResponse<bool>> useCase) =>
             {
                 return await useCase.ExecuteAsync(idEmpresa);
             })

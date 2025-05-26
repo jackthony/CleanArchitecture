@@ -78,7 +78,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("InsertUsuario")
             .WithOpenApi();
 
-            app.MapPut("Usuario/Update", async (UsuarioUpdateDTO request, EditUsuarioUseCase<UsuarioUpdateDTO, ItemResponse<bool>> useCase) =>
+            app.MapPost("Usuario/Update", async (UsuarioUpdateDTO request, EditUsuarioUseCase<UsuarioUpdateDTO, ItemResponse<bool>> useCase) =>
             {
                 return await useCase.ExecuteAsync(request);
             })
@@ -86,7 +86,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("UpdateUsuario")
             .WithOpenApi();
 
-            app.MapDelete("Usuario/Delete/{idUsuario}", async (int idUsuario, DeleteUsuarioUseCase<ItemResponse<bool>> useCase) =>
+            app.MapPost("Usuario/Delete/{idUsuario}", async (int idUsuario, DeleteUsuarioUseCase<ItemResponse<bool>> useCase) =>
             {
                 return await useCase.ExecuteAsync(idUsuario);
             })
@@ -94,7 +94,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .WithName("DeleteUsuario")
             .WithOpenApi();
 
-            app.MapPut("Usuario/ChangePassword", async (UsuarioUpdatePasswordDTO request, ChangePasswordUseCase<UsuarioUpdatePasswordDTO, ItemResponse<bool>> useCase) =>
+            app.MapPost("Usuario/ChangePassword", async (UsuarioUpdatePasswordDTO request, ChangePasswordUseCase<UsuarioUpdatePasswordDTO, ItemResponse<bool>> useCase) =>
             {
                 return await useCase.ExecuteAsync(request);
             })
