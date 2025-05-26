@@ -145,7 +145,7 @@ namespace CA_InterfaceAdapter_Repository
 
             var totalRows = await query.CountAsync();
                        var lstItem = await query
-                           .OrderBy(e => e.nIdUsuario)
+                           .OrderByDescending(e => e.nIdUsuario)
                            .Skip((pageIndex-1) * pageSize)
                            .Take(pageSize)
                            .ToListAsync();

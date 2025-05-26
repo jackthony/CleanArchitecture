@@ -56,6 +56,7 @@ namespace CA_InterfaceAdapter_Repository
             if (empresaModel == null)
                 return false;
 
+            empresaModel.nIdRubroNegocio = entity.nIdRubroNegocio;
             empresaModel.sIdDepartamento = entity.sIdDepartamento;
             empresaModel.sIdProvincia = entity.sIdProvincia;
             empresaModel.sIdDistrito = entity.sIdDistrito;

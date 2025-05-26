@@ -9,6 +9,8 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.EMP_EMPRESA
     public class EMP_EmpresaUpdateDTO
     {
         public int nIdEmpresa { get; set; }
+
+        public int nIdRubroNegocio { get; set; }
         public string sIdDepartamento { get; set; }
         public string sIdProvincia { get; set; }
         public string sIdDistrito { get; set; }

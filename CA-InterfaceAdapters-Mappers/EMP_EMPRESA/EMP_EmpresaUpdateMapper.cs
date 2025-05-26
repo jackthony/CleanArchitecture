@@ -15,6 +15,7 @@ namespace CA_InterfaceAdapters_Mappers.EMP_EMPRESA
             => new EMP_EmpresaEntity()
             {
                 nIdEmpresa=dto.nIdEmpresa,
+                nIdRubroNegocio = dto.nIdRubroNegocio,
                 sIdDepartamento=dto.sIdDepartamento,
                 sIdProvincia=dto.sIdProvincia,
                 sIdDistrito=dto.sIdDistrito,
