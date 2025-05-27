@@ -77,6 +77,7 @@ builder.Services.AddRolesService();
 builder.Services.AddPermisosService();
 builder.Services.AddProcesosService();
 builder.Services.AddRolPermisosService();
+builder.Services.AddArchivoProcesoServices();
 
 //builder.Services.AddScoped<IRepository<Beer>, Repository>();
 builder.Services.AddScoped<IPresenter<Beer, BeerViewModel>, BeerPresenter>();
@@ -121,6 +122,7 @@ app.EmpDietaEndpoints();
 app.MapRolesEndpoints();
 app.MapPermisosEndpoints();
 app.MapProcesosEndpoints();
+app.MapArchivoProcesoEndpoints();
 
 app.Run();
 

@@ -26,6 +26,7 @@ namespace CA_InterfaceAdapters_Data
         public DbSet<ProcesoModel> Procesos { get; set; }
         public DbSet<PermisoModel> Permisos { get; set; }
         public DbSet<RolPermisoModel> RolPermisos { get; set; }
+        public DbSet<ArchivoProcesoModel> ArchivoProcesos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +44,7 @@ namespace CA_InterfaceAdapters_Data
             modelBuilder.Entity<PermisoModel>().ToTable("PERMISO");
             modelBuilder.Entity<RolPermisoModel>().ToTable("ROL_PERMISO");
 
+            modelBuilder.Entity<ArchivoProcesoModel>().ToTable("ARCHIVO_PROCESO");
 
             modelBuilder.Entity<EMP_DietaModel>(entity =>
             {
