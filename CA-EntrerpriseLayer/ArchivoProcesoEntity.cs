@@ -14,6 +14,7 @@ namespace CA_EntrerpriseLayer
         public string sExtension { get; set; } = null!;
 
         public int nIdEntidadRelacionada { get; set; }
+        public string sIdEntidad { get; set; }
 
         public string? sDescripcion { get; set; }
 
@@ -26,5 +27,9 @@ namespace CA_EntrerpriseLayer
         public int? nIdUsuarioModif { get; set; }
 
         public bool bEliminado { get; set; } = false;
+
+        public string sNombreFile { get; set; }
+
+        public IFormFile? formFile { get; set; }
     }
 }

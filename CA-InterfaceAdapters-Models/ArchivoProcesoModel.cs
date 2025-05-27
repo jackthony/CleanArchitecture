@@ -16,6 +16,8 @@ namespace CA_InterfaceAdapters_Models
 
         public string sExtension { get; set; } = null!;
 
+        public string sIdEntidad { get; set; } = null!;
+
         public int nIdEntidadRelacionada { get; set; }
 
         public string? sDescripcion { get; set; }
@@ -29,6 +31,8 @@ namespace CA_InterfaceAdapters_Models
         public int? nIdUsuarioModif { get; set; }
 
         public bool bEliminado { get; set; } = false;
+
+        public string sNombreFile { get; set; }
 
     }
 }

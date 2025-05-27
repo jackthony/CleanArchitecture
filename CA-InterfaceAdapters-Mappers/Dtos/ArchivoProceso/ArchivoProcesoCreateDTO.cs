@@ -17,10 +17,7 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.ArchivoProceso
         public int nIdEntidadRelacionada { get; set; }
 
         public int nUserId { get; set; } = 0; // Este campo puede ser opcional, dependiendo de la implementación del Use Case
-        public string? sTipoDocumento { get; set; }
 
-        public string? sDescripcion { get; set; }
-
-        public DateTime? dtFechaDocumento { get; set; }
+        public string sIdEntidad { get; set; }
     }
 }

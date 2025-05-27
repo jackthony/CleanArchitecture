@@ -3,6 +3,7 @@ using System.IO;
 using CA_ApplicationLayer;
 using CA_EntrerpriseLayer;
 using CA_InterfaceAdapters_Mappers.Dtos.ArchivoProceso;
+using Microsoft.AspNetCore.Http;
 
 namespace CA_InterfaceAdapters_Mappers
 {
@@ -28,11 +29,13 @@ namespace CA_InterfaceAdapters_Mappers
                 nIdEntidadRelacionada = dto.nIdEntidadRelacionada,
                 // 👉  La ruta se completará cuando el Use Case lo guarde
                 sRutaFisica = string.Empty,
+                formFile = dto.Archivo,
 
                 nIdUsuarioCreacion = dto.nUserId > 0 ? dto.nUserId : default,
                 sExtension = extension,
+                sIdEntidad = dto.sIdEntidad,
 
-                sDescripcion = dto.sDescripcion,
+                //sDescripcion = dto.sDescripcion,
 
                 // 👉  Se llenará en el Use Case con DateTime.UtcNow
                 dtFechaCreacion = default,

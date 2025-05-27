@@ -32,6 +32,8 @@ namespace CA_InterfaceAdapter_Repository
                 nIdEntidadRelacionada = e.nIdEntidadRelacionada,
                 sRutaFisica = e.sRutaFisica,
                 sExtension = e.sExtension,
+                sIdEntidad = e.sIdEntidad,
+                sNombreFile = e.sNombreFile,
                 //sTipoDocumento = e.sTipoDocumento,
                 sDescripcion = e.sDescripcion,
                 dtFechaCreacion = e.dtFechaCreacion,
@@ -41,9 +43,9 @@ namespace CA_InterfaceAdapter_Repository
                 bEliminado = e.bEliminado
             };
 
-            _ctx.ArchivoProcesos.Add(model);
+            await _ctx.ArchivoProcesos.AddAsync(model);
 
-            await _ctx.SaveChangesAsync(ct);
+            await _ctx.SaveChangesAsync();
             return model.nIdArchivoProceso;
         }
 

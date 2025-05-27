@@ -43,25 +43,28 @@ namespace CA_ApplicationLayer.ArchivoProceso
             if (dto == null)
                 return TypedResults.BadRequest(new { message = "El cuerpo de la petición es nulo." });
 
-            if (dto is not IHasFormFile input)
-                return TypedResults.BadRequest(new { message = "El DTO no contiene un archivo." });
+            
 
             // ───────────────────────────────────────────────
             // 2. Mapear DTO → Entidad (sin datos de storage aún)
             // ───────────────────────────────────────────────
             var entity = _mapper.ToEntity(dto);
 
+            if (entity.formFile == null || entity.formFile.Length == 0)
+                return TypedResults.BadRequest(new { message = "El DTO no contiene un archivo." });
+
             // ───────────────────────────────────────────────
             // 3. Guardar físicamente
             //    (el servicio devuelve la ruta relativa o url)
             // ───────────────────────────────────────────────
             entity.sRutaFisica = await _storage.SaveAsync(
-                                        input.Archivo,
+                                        entity.formFile,
                                         entity.nIdEntidadRelacionada,
                                         ct);
 
             entity.dtFechaCreacion = _clock.UtcNow;
             entity.nIdUsuarioCreacion = entity.nIdUsuarioCreacion;
+            entity.sNombreFile = entity.formFile.FileName;
 
             // ───────────────────────────────────────────────
             // 4. Persistir metadatos

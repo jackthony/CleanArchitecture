@@ -24,6 +24,7 @@ namespace CA_FrameworksDrivers_API.Endpoints
             {
                 return await useCase.ExecuteAsync(request);
             })
+            .DisableAntiforgery()
             .WithTags("ArchivoProceso")
             .WithName("InsertArchivo")
             .WithOpenApi();
