@@ -33,7 +33,7 @@ namespace CA_InterfaceAdapters_Mappers
 
                 nIdUsuarioCreacion = dto.nUserId > 0 ? dto.nUserId : default,
                 sExtension = extension,
-                sIdEntidad = dto.sIdEntidad,
+                nIdEntidad = dto.nIdEntidad,
 
                 //sDescripcion = dto.sDescripcion,
 

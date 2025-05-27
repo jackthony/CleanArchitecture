@@ -16,7 +16,7 @@ namespace CA_InterfaceAdapters_Models
 
         public string sExtension { get; set; } = null!;
 
-        public string sIdEntidad { get; set; } = null!;
+        public int nIdEntidad { get; set; }
 
         public int nIdEntidadRelacionada { get; set; }
 

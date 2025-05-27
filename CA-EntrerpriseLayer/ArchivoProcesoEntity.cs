@@ -14,7 +14,7 @@ namespace CA_EntrerpriseLayer
         public string sExtension { get; set; } = null!;
 
         public int nIdEntidadRelacionada { get; set; }
-        public string sIdEntidad { get; set; }
+        public int nIdEntidad { get; set; }
 
         public string? sDescripcion { get; set; }
 

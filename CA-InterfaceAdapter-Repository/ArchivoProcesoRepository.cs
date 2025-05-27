@@ -32,7 +32,7 @@ namespace CA_InterfaceAdapter_Repository
                 nIdEntidadRelacionada = e.nIdEntidadRelacionada,
                 sRutaFisica = e.sRutaFisica,
                 sExtension = e.sExtension,
-                sIdEntidad = e.sIdEntidad,
+                nIdEntidad = e.nIdEntidad,
                 sNombreFile = e.sNombreFile,
                 //sTipoDocumento = e.sTipoDocumento,
                 sDescripcion = e.sDescripcion,
