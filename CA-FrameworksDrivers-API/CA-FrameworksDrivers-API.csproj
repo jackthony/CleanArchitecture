@@ -11,6 +11,9 @@
     <PackageReference Include="FluentValidation" Version="11.11.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.12" />
+    <PackageReference Include="Netmentor.ROP" Version="1.8.0" />
+    <PackageReference Include="Netmentor.ROP.ApiExtensions" Version="1.8.0" />
+    <PackageReference Include="Netmentor.ROP.ApiExtensions.Translations" Version="1.8.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 

@@ -93,7 +93,7 @@ app.MapPost("/beer", async (BeerRequestDTO beerRequest, AddBeerUseCase<BeerReque
 {
     var result = await validator.ValidateAsync(beerRequest);
     
-    await beerUseCase.ExecuteAsync(beerRequest);
+    //await beerUseCase.ExecuteAsync(beerRequest);
 
     if (!result.IsValid)
     {
@@ -172,5 +172,6 @@ app.MapGet("/salesearch/{total}", async (GetSaleSearchUseCase<SaleModel> saleUse
 //.WithName("getSalesSearch")
 //.WithOpenApi();
 
+app.MapControllers();
 app.Run();
 

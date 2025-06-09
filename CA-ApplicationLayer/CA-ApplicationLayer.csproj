@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Netmentor.ROP" Version="1.8.0" />
+    <PackageReference Include="Netmentor.ROP.ApiExtensions" Version="1.8.0" />
+    <PackageReference Include="Netmentor.ROP.ApiExtensions.Translations" Version="1.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CA-EntrerpriseLayer\CA-EntrerpriseLayer.csproj" />
   </ItemGroup>
 

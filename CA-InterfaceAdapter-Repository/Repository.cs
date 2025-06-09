@@ -17,14 +17,27 @@ namespace CA_InterfaceAdapter_Repository
 
         public async Task AddAsync(Beer beer)
         {
-            var beerModel = new BeerModel
+            var existingBeer = await _dbContext.Beers
+                .FirstOrDefaultAsync(b => b.Name == beer.Name && b.Style == beer.Style);
+
+            if (existingBeer != null)
             {
-                Id = beer.Id,
-                Name = beer.Name,
-                Style = beer.Style
-            };
-            await _dbContext.Beers.AddAsync(beerModel);
-            await _dbContext.SaveChangesAsync();
+                // Si la cerveza ya existe, puedes actualizarla en lugar de agregarla.
+                existingBeer.Alcohol = beer.Alcohol; // Actualiza cualquier campo necesario
+                await _dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                var beerModel = new BeerModel
+                {
+                    Name = beer.Name,
+                    Style = beer.Style,
+                    Alcohol = beer.Alcohol
+                };
+                await _dbContext.Beers.AddAsync(beerModel);
+                await _dbContext.SaveChangesAsync();
+            }
+
         }
 
         public async Task<IEnumerable<Beer>> GetAllAsync()
