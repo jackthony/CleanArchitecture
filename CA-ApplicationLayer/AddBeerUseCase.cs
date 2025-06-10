@@ -19,9 +19,6 @@ namespace CA_ApplicationLayer
 
         public async Task<Result<Unit>> ExecuteAsync(TDTO beerDTO)
         {
-            if (beerDTO == null)
-                return Result.Failure<Unit>(Error.Create("Beer data is required"));
-
             var beer = _mapper.ToEntity(beerDTO);
 
             if (string.IsNullOrWhiteSpace(beer.Name))
@@ -30,14 +27,5 @@ namespace CA_ApplicationLayer
 
             return Result.Success();
         }
-        //public async Task ExecuteAsync(TDTO beerDTO)
-        //{
-        //    var beer = _mapper.ToEntity(beerDTO);
-
-        //    if(string.IsNullOrEmpty(beer.Name))
-        //        throw new Exceptions.ValidationException("El nombre de la cerveza es obligatorio.");
-
-        //    await _beerRepository.AddAsync(beer);
-        //}
     }
 }

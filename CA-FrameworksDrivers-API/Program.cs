@@ -18,6 +18,7 @@ using CA_ApplicationLayer.venta;
 using CA_EntrerpriseLayer.venta;
 using CA_InterfaceAdapters_Models;
 using Microsoft.AspNetCore.Mvc;
+using ROP.APIExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+
 
 //validadores
 builder.Services.AddValidatorsFromAssemblyContaining<BeerValidator>();
