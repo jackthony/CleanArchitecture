@@ -19,5 +19,7 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.ArchivoProceso
         public int nUserId { get; set; } = 0; // Este campo puede ser opcional, dependiendo de la implementación del Use Case
 
         public int nIdEntidad { get; set; }
+
+        public string sRuta { get; set; }
     }
 }

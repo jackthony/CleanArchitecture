@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using CA_EntrerpriseLayer;
+using CA_ApplicationLayer.EMP_Empresa;
 
 namespace CA_ApplicationLayer.ArchivoProceso
 {
@@ -17,19 +18,22 @@ namespace CA_ApplicationLayer.ArchivoProceso
         private readonly IPresenterResponse<int, TOutput> _presenter;
         private readonly IArchivoStorage _storage;
         private readonly IClock _clock;
+        private readonly IEmp_EmpresaRepository _empEmpresaRepository;
 
         public AddArchivoProcesoUseCase(
             IArchivoProcesoRepository repository,
             IMapper<TDTO, ArchivoProcesoEntity> mapper,
             IPresenterResponse<int, TOutput> presenter,
             IArchivoStorage storage,
-            IClock clock)
+            IClock clock,
+            IEmp_EmpresaRepository empEmpresaRepository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _clock = clock ?? throw new ArgumentNullException(nameof(clock));
+            _empEmpresaRepository = empEmpresaRepository;
         }
 
         /// <summary>
@@ -37,6 +41,7 @@ namespace CA_ApplicationLayer.ArchivoProceso
         /// </summary>
         public async Task<IResult> ExecuteAsync(TDTO dto, CancellationToken ct = default)
         {
+
             // ───────────────────────────────────────────────
             // 1. Validar entrada básica
             // ───────────────────────────────────────────────
@@ -50,8 +55,14 @@ namespace CA_ApplicationLayer.ArchivoProceso
             // ───────────────────────────────────────────────
             var entity = _mapper.ToEntity(dto);
 
+            //VALIDAR EMPRESA
+            var enterprise = await _empEmpresaRepository.GetById(entity.nIdEntidad);
+            if (enterprise == null) return TypedResults.BadRequest(new { message = "La empresa no se encuentra registrada" });
+
             if (entity.formFile == null || entity.formFile.Length == 0)
                 return TypedResults.BadRequest(new { message = "El DTO no contiene un archivo." });
+
+
 
             // ───────────────────────────────────────────────
             // 3. Guardar físicamente
@@ -59,7 +70,7 @@ namespace CA_ApplicationLayer.ArchivoProceso
             // ───────────────────────────────────────────────
             entity.sRutaFisica = await _storage.SaveAsync(
                                         entity.formFile,
-                                        entity.nIdEntidadRelacionada,
+                                        entity.sRuta,
                                         ct);
 
             entity.dtFechaCreacion = _clock.UtcNow;

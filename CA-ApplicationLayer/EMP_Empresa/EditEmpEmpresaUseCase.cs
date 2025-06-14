@@ -31,6 +31,7 @@ namespace CA_ApplicationLayer.EMP_Empresa
                 var empresa = _mapper.ToEntity(entity);
                 empresa.dtFechaModificacion = _tzProvider.GetCurrentTimeInZone();
                 bool exit = await _empEmpresaRepository.UpdateAsync(empresa);
+
                 var response = _presenterResponse.Present(exit);
 
                 return Results.Ok(response);

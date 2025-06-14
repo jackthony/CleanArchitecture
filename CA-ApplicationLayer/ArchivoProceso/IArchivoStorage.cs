@@ -11,7 +11,7 @@ namespace CA_ApplicationLayer.ArchivoProceso
     {
         /// <summary>Guarda el archivo y devuelve la ruta relativa.</summary>
         Task<string> SaveAsync(IFormFile file,
-                               int idEntidad,
+                               string folderContent,
                                CancellationToken ct = default);
     }
 

@@ -5,6 +5,7 @@ using CA_InterfaceAdapters_Mappers.Dtos.ArchivoProceso;
 using CA_InterfaceAdapters_Mappers.Dtos.EMP_EMPRESA;
 using CA_InterfaceAdapters_Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace CA_FrameworksDrivers_API.Endpoints
 {
@@ -27,6 +28,39 @@ namespace CA_FrameworksDrivers_API.Endpoints
             .DisableAntiforgery()
             .WithTags("ArchivoProceso")
             .WithName("InsertArchivo")
+            .WithOpenApi();
+
+            app.MapGet("ArchivoProceso/OpenFolder/{*param}", (string param) =>
+            {
+                // Ruta por defecto si no se recibe parámetro
+                string folderPath = @"C:\FonafeStorage\"+param;
+                folderPath = folderPath.Replace('/', '\\');
+
+                try
+                {
+                    // Verificar y crear carpeta si no existe
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+
+                    // Abrir carpeta con explorer.exe
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "explorer.exe",
+                        Arguments = folderPath,
+                        UseShellExecute = true
+                    });
+
+                    return Results.Ok(new { message = $"Carpeta '{folderPath}' creada (si no existía) y abierta correctamente." });
+                }
+                catch (Exception ex)
+                {
+                    return Results.Problem($"Error al crear o abrir la carpeta: {ex.Message}");
+                }
+            })
+            .WithTags("ArchivoProceso")
+            .WithName("openFolder")
             .WithOpenApi();
         }
     }

@@ -17,7 +17,7 @@ public sealed class FileSystemArchivoStorage : IArchivoStorage
     }
 
     public async Task<string> SaveAsync(
-        IFormFile file, int nIdEntidadRelacionada, CancellationToken ct = default)
+        IFormFile file, string folderContent, CancellationToken ct = default)
     {
         if (file.Length == 0)
             throw new InvalidOperationException("Archivo vacío.");
@@ -26,10 +26,7 @@ public sealed class FileSystemArchivoStorage : IArchivoStorage
         var now = DateTime.UtcNow;
         var folder = Path.Combine(
                             _rootPath,
-                            "Entidad",
-                            nIdEntidadRelacionada.ToString(),
-                            now.Year.ToString("0000"),
-                            now.Month.ToString("00"));
+                            folderContent);
 
         Directory.CreateDirectory(folder);
 

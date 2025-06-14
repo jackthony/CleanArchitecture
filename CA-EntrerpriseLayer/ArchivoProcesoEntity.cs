@@ -31,5 +31,7 @@ namespace CA_EntrerpriseLayer
         public string sNombreFile { get; set; }
 
         public IFormFile? formFile { get; set; }
+
+        public string sRuta { get; set; }
     }
 }

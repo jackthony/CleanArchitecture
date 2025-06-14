@@ -6,6 +6,7 @@ using CA_InterfaceAdapters_Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -135,11 +136,6 @@ namespace CA_InterfaceAdapter_Repository
                             sProvinciaDescripcion = provincia.sName
                         };
 
-            if (!string.IsNullOrEmpty(nameEnterprise))
-            {
-                
-                query = query.Where(e => e.sRazonSocial.Contains(nameEnterprise));
-            }
 
 
             var totalRows = await query.CountAsync();
@@ -148,6 +144,31 @@ namespace CA_InterfaceAdapter_Repository
                 .Skip((pageIndex-1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
+
+            if (!string.IsNullOrEmpty(nameEnterprise))
+            {
+
+                var lowerCriterio = nameEnterprise.Trim().ToLowerInvariant();
+
+                lstItem = lstItem.Where(e =>
+                    (e.sRazonSocial ?? "").ToLower().Contains(lowerCriterio) ||
+                    (e.sRuc ?? "").ToLower().Contains(lowerCriterio) ||
+                    (e.sDireccion ?? "").ToLower().Contains(lowerCriterio) ||
+                    (e.sComentario ?? "").ToLower().Contains(lowerCriterio) ||
+                    (e.sNombreMinisterio ?? "").ToLower().Contains(lowerCriterio) || 
+                    (e.sDescripcionRubro ?? "").ToLower().Contains(lowerCriterio) ||
+                    (e.sProvinciaDescripcion ?? "").ToLower().Contains(lowerCriterio) ||
+                    (e.dtFechaRegistro.ToString("dd/MM/yyyy") ?? "").ToLower().Contains(lowerCriterio) ||
+                    (e.dtFechaModificacion?.ToString("dd/MM/yyyy") ?? "").ToLower().Contains(lowerCriterio)
+                ).ToList();
+                
+            }
+
+            int indiceInicio = ((pageIndex - 1) * pageSize) + 1;
+            for (int i = 0; i < lstItem.Count; i++)
+            {
+                lstItem[i].indice = (indiceInicio + i).ToString();
+            }
 
             return new ItemsPaginatorEntity<EMP_EmpresaModel>()
             {

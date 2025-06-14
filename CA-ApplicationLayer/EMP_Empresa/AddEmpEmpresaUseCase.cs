@@ -31,7 +31,21 @@ namespace CA_ApplicationLayer.EMP_Empresa
             {
                 var empresa = _mapper.ToEntity(entity);
                 empresa.dtFechaRegistro = _tzProvider.GetCurrentTimeInZone();
+
                 int code = await _empEmpresaRepository.AddAsync(empresa);
+
+                //TEMPORAL BORRAR
+                if (code > 0)
+                {
+                    string basePath = @"C:\FonafeStorage\Empresa";
+                    string folderPath = Path.Combine(basePath, empresa.sRazonSocial);
+
+                    // Verificar y crear carpeta si no existe
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                }
                 var response = _presenterResponse.Present(code);
 
                 return Results.Ok(response);

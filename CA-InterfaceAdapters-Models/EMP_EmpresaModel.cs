@@ -40,5 +40,8 @@ namespace CA_InterfaceAdapters_Models
         public string? sNombreMinisterio { get; set; }
         [NotMapped]
         public string? sProvinciaDescripcion { get; set; }
+        [NotMapped]
+        public string? indice { get; set; }
+
     }
 }
