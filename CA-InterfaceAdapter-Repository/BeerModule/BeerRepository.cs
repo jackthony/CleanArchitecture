@@ -71,7 +71,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
                     Name = b.sNombre,
                     Style = b.sEstilo,
                     Alcohol = b.dAlcohol,
-                    DateCreate = b.dtFechaCreacion,
+                    DateCreate = b.dtFechaCreacion ?? DateTime.UtcNow,
                     userCreated = b.sUsuarioCreacion,
                     DateUpdate = b.dtFechaActualizacion ?? DateTime.UtcNow, // Default value if null
                     userUpdated = b.sUsuarioActualizacion ?? "System" // Default value if null
@@ -94,10 +94,10 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
                 Name = beerModel.sNombre,
                 Style = beerModel.sEstilo,
                 Alcohol = beerModel.dAlcohol,
-                DateCreate = beerModel.dtFechaCreacion,
+                DateCreate = beerModel.dtFechaCreacion ?? DateTime.UtcNow,
                 userCreated = beerModel.sUsuarioCreacion,
                 DateUpdate = beerModel.dtFechaActualizacion ?? DateTime.UtcNow,
-                userUpdated = beerModel.sUsuarioActualizacion ?? "System"
+                userUpdated = beerModel.sUsuarioActualizacion ?? ""
             };
         }
 
@@ -123,7 +123,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
                         Name = b.sNombre,
                         Style = b.sEstilo,
                         Alcohol = b.dAlcohol,
-                        DateCreate = b.dtFechaCreacion,
+                        DateCreate = b.dtFechaCreacion ?? DateTime.UtcNow,
                         userCreated = b.sUsuarioCreacion,
                         DateUpdate = b.dtFechaActualizacion ?? DateTime.UtcNow,
                         userUpdated = b.sUsuarioActualizacion
@@ -154,7 +154,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
                         Name = b.sNombre,
                         Style = b.sEstilo,
                         Alcohol = b.dAlcohol,
-                        DateCreate = b.dtFechaCreacion,
+                        DateCreate = b.dtFechaCreacion ?? DateTime.UtcNow,
                         userCreated = b.sUsuarioCreacion,
                         DateUpdate = b.dtFechaActualizacion ?? DateTime.UtcNow,
                         userUpdated = b.sUsuarioActualizacion
@@ -181,7 +181,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
                 Name = b.sNombre,
                 Style = b.sEstilo,
                 Alcohol = b.dAlcohol,
-                DateCreate = b.dtFechaCreacion,
+                DateCreate = b.dtFechaCreacion ?? DateTime.UtcNow,
                 userCreated = b.sUsuarioCreacion,
                 DateUpdate = b.dtFechaActualizacion ?? DateTime.UtcNow,
                 userUpdated = b.sUsuarioActualizacion
