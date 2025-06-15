@@ -4,10 +4,10 @@ using CA_InterfaceAdapters_Mappers.Dtos.Requests.BeerModule;
 
 namespace CA_InterfaceAdapters_Mappers.Mappers.BeerModule
 {
-    public class BeerMapper : IMapperDtoToOutput<BeerRequestDTO, Beer>
+    public class AddBeerMapper : IMapperDtoToOutput<AddBeerRequestDTO, BeerEntity>
     {
-        public Beer ToEntity(BeerRequestDTO dto)
-            => new Beer()
+        public BeerEntity ToEntity(AddBeerRequestDTO dto)
+            => new BeerEntity()
             {
                 Id = dto.Id,
                 Name = dto.Name,

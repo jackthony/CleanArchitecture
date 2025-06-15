@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace CA_InterfaceAdapters_Presenters.BeerModule.BeerDetail
 {
-    public class BeerDetailPresenter : IPresenterGetAll<Beer, BeerDetailViewModel>
+    public class BeerDetailPresenter : IPresenterGetAll<BeerEntity, BeerDetailViewModel>
     {
-        public IEnumerable<BeerDetailViewModel> PresentGetAll(IEnumerable<Beer> beers)
+        public IEnumerable<BeerDetailViewModel> PresentGetAll(IEnumerable<BeerEntity> beers)
             => beers.Select(b => new BeerDetailViewModel
             {
                 Id = b.Id,

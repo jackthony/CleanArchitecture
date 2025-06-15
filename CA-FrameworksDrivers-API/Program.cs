@@ -16,7 +16,6 @@ using CA_ApplicationLayer.UseCases.SalesUseCases;
 using CA_ApplicationLayer.UseCases.PostsUseCases;
 using CA_EntrerpriseLayer.BeerModule;
 using CA_EntrerpriseLayer.PostModule;
-using CA_FrameworksDrivers_API.Validators.BeerModule;
 using CA_InterfaceAdapters_Mappers.Mappers.BeerModule;
 using CA_InterfaceAdapters_Mappers.Mappers.SaleModule;
 using CA_InterfaceAdapters_Mappers.Dtos.Requests.BeerModule;
@@ -32,6 +31,7 @@ using CA_InterfaceAdapters_Data.Contexts.EfCore;
 using CA_InterfaceAdapter_Repository.BeerModule;
 using CA_InterfaceAdapter_Repository.SaleModule;
 using CA_InterfaceAdapters_Models.BeerModule;
+using CA_FrameworksDrivers_API.Validators.BeerModule.BeerValidators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,25 +56,21 @@ builder.Services.AddDbContext<AppDbContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     }
 );
-builder.Services.AddScoped<IRepositoryAddAsync<Beer>, BeerRepository>();
-builder.Services.AddScoped<IRepositoryDeleteAsync<Beer>, BeerRepository>();
-builder.Services.AddScoped<IRepositoryGetAllAsync<Beer>, BeerRepository>();
-builder.Services.AddScoped<IRepositoryGetByIdAsync<Beer>, BeerRepository>();
-builder.Services.AddScoped<IRepositoryGetByPagination<Beer>, BeerRepository>();
-builder.Services.AddScoped<IRepositoryUpdateAsync<Beer>, BeerRepository>();
-builder.Services.AddScoped<IRepositorySearch<BeerModel, Beer>, BeerRepository>();
+//builder.Services.AddScoped<IRepositoryAddAsync<Beer>, BeerRepository>();
+//builder.Services.AddScoped<IRepositoryDeleteAsync<Beer>, BeerRepository>();
+//builder.Services.AddScoped<IRepositoryGetAllAsync<Beer>, BeerRepository>();
+//builder.Services.AddScoped<IRepositoryGetByIdAsync<Beer>, BeerRepository>();
+//builder.Services.AddScoped<IRepositoryGetByPagination<Beer>, BeerRepository>();
+//builder.Services.AddScoped<IRepositoryUpdateAsync<Beer>, BeerRepository>();
+//builder.Services.AddScoped<IRepositorySearch<BeerModel, Beer>, BeerRepository>();
 
 
 
 
-builder.Services.AddScoped<IPresenterGetAll<Beer, BeerViewModel>, BeerPresenter>();
-builder.Services.AddScoped<IPresenterGetAll<Beer, BeerDetailViewModel>, BeerDetailPresenter>();
-builder.Services.AddScoped<IMapperDtoToOutput<BeerRequestDTO, Beer>, BeerMapper>();
+
 builder.Services.AddScoped<IEServiceGetContentAsync<PostServiceDTO>, PostService>();
 builder.Services.AddScoped<IESGetAllDataAsync<Post>, PostExternalServiceAdapter>();
-builder.Services.AddScoped<GetBeerUseCase<Beer, BeerViewModel>>();
-builder.Services.AddScoped<GetBeerUseCase<Beer, BeerDetailViewModel>>();
-builder.Services.AddScoped<AddBeerUseCase<BeerRequestDTO>>();
+
 builder.Services.AddScoped<GetPostUseCase>();
 //Generate Sale Use Case
 builder.Services.AddScoped<GenerateSaleUseCase<SaleRequestDTO>>();
@@ -107,15 +103,15 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-app.MapGet("/beer", async (GetBeerUseCase<Beer, BeerViewModel> beerUseCase) => 
+app.MapGet("/beer", async (GetBeerUseCase<BeerEntity, BeerViewModel> beerUseCase) => 
 {
     return await beerUseCase.ExecuteAsync();
 })
 .WithName("beers")
 .WithOpenApi();
 
-app.MapPost("/beer", async (BeerRequestDTO beerRequest, AddBeerUseCase<BeerRequestDTO> beerUseCase,
-    IValidator<BeerRequestDTO> validator) =>
+app.MapPost("/beer", async (AddBeerRequestDTO beerRequest, AddBeerUseCase<AddBeerRequestDTO> beerUseCase,
+    IValidator<AddBeerRequestDTO> validator) =>
 {
     var result = await validator.ValidateAsync(beerRequest);
     
@@ -132,7 +128,7 @@ app.MapPost("/beer", async (BeerRequestDTO beerRequest, AddBeerUseCase<BeerReque
 .WithName("add-beer")
 .WithOpenApi();
 
-app.MapGet("/beerDetail", async (GetBeerUseCase<Beer, BeerDetailViewModel> beerUseCase) =>
+app.MapGet("/beerDetail", async (GetBeerUseCase<BeerEntity, BeerDetailViewModel> beerUseCase) =>
 {
     return await beerUseCase.ExecuteAsync();
 })

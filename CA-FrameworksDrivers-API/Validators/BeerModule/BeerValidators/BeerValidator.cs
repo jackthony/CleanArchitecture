@@ -1,9 +1,9 @@
 ﻿using CA_InterfaceAdapters_Mappers.Dtos.Requests.BeerModule;
 using FluentValidation;
 
-namespace CA_FrameworksDrivers_API.Validators.BeerModule
+namespace CA_FrameworksDrivers_API.Validators.BeerModule.BeerValidators
 {
-    public class BeerValidator : AbstractValidator<BeerRequestDTO>
+    public class BeerValidator : AbstractValidator<AddBeerRequestDTO>
     {
         public BeerValidator()
         {

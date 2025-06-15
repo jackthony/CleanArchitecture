@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CA_EntrerpriseLayer.BeerModule
 {
-    public class Beer
+    public class BeerEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

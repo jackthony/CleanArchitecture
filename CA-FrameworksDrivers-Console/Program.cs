@@ -20,12 +20,12 @@ IConfiguration configuration = builder.Build();
 var container = new ServiceCollection()
     .AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
-    .AddScoped<IRepositoryGetAllAsync<Beer>, BeerRepository>()
-    .AddScoped<GetBeerUseCase<Beer, BeerViewModel>>()
-    .AddScoped<IPresenterGetAll<Beer, BeerViewModel>, BeerPresenter>()
+    .AddScoped<IRepositoryGetAllAsync<BeerEntity>, BeerRepository>()
+    .AddScoped<GetBeerUseCase<BeerEntity, BeerViewModel>>()
+    .AddScoped<IPresenterGetAll<BeerEntity, BeerViewModel>, BeerPresenter>()
     .BuildServiceProvider();
 
-var getBeerUseCase = container.GetService<GetBeerUseCase<Beer, BeerDetailViewModel>>();
+var getBeerUseCase = container.GetService<GetBeerUseCase<BeerEntity, BeerDetailViewModel>>();
 
 var beers = await getBeerUseCase.ExecuteAsync();
 

@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CA_InterfaceAdapter_Repository.BeerModule
 {
-    public class BeerRepository : IRepositoryAddAsync<Beer>,
-        IRepositoryGetAllAsync<Beer>, IRepositoryGetByIdAsync<Beer>, IRepositoryGetByPagination<Beer>, IRepositoryUpdateAsync<Beer>,
-        IRepositoryDeleteAsync<Beer>, IRepositorySearch<BeerModel, Beer>
+    public class BeerRepository : IRepositoryAddAsync<BeerEntity>,
+        IRepositoryGetAllAsync<BeerEntity>, IRepositoryGetByIdAsync<BeerEntity>, IRepositoryGetByPagination<BeerEntity>, IRepositoryUpdateAsync<BeerEntity>,
+        IRepositoryDeleteAsync<BeerEntity>, IRepositorySearch<BeerModel, BeerEntity>
     {
 
 
@@ -21,7 +21,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
         {
             _dbContext = context;
         }
-        public async Task<int> AddAsync(Beer beer)
+        public async Task<int> AddAsync(BeerEntity beer)
         {
             if (beer == null)
                 throw new ArgumentNullException(nameof(beer));
@@ -47,7 +47,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
             return beerModel.nIdBeer;
         }
 
-        public async Task DeleteAsync(Beer entity)
+        public async Task DeleteAsync(BeerEntity entity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
@@ -61,11 +61,11 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Beer>> GetAllAsync()
+        public async Task<IEnumerable<BeerEntity>> GetAllAsync()
         {
             return await _dbContext.Beers
                 .AsNoTracking()
-                .Select(b => new Beer
+                .Select(b => new BeerEntity
                 {
                     Id = b.nIdBeer,
                     Name = b.sNombre,
@@ -79,7 +79,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
                 .ToListAsync();
         }
 
-        public async Task<Beer> GetByIdAsync(int id)
+        public async Task<BeerEntity> GetByIdAsync(int id)
         {
             var beerModel = await _dbContext.Beers
                 .AsNoTracking()
@@ -88,7 +88,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
             if (beerModel == null)
                 throw new InvalidOperationException("Beer not found.");
 
-            return new Beer
+            return new BeerEntity
             {
                 Id = beerModel.nIdBeer,
                 Name = beerModel.sNombre,
@@ -101,7 +101,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
             };
         }
 
-        public IQueryable<Beer> GetByPagination(int pageNumber, int pageSize, out int totalCount, Func<IQueryable<Beer>, IQueryable<Beer>>? orderBy = null, Func<IQueryable<Beer>, IQueryable<Beer>>? filter = null)
+        public IQueryable<BeerEntity> GetByPagination(int pageNumber, int pageSize, out int totalCount, Func<IQueryable<BeerEntity>, IQueryable<BeerEntity>>? orderBy = null, Func<IQueryable<BeerEntity>, IQueryable<BeerEntity>>? filter = null)
         {
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException(nameof(pageNumber));
@@ -117,7 +117,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
             {
                 // Convertimos el filtro para que opere sobre BeerModel en lugar de Beer
                 Func<IQueryable<BeerModel>, IQueryable<BeerModel>> adaptedFilter = q => filter(
-                    q.Select(b => new Beer
+                    q.Select(b => new BeerEntity
                     {
                         Id = b.nIdBeer,
                         Name = b.sNombre,
@@ -148,7 +148,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
             {
                 // Convertimos el orden para que opere sobre BeerModel en lugar de Beer
                 Func<IQueryable<BeerModel>, IQueryable<BeerModel>> adaptedOrderBy = q => orderBy(
-                    q.Select(b => new Beer
+                    q.Select(b => new BeerEntity
                     {
                         Id = b.nIdBeer,
                         Name = b.sNombre,
@@ -175,7 +175,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
             }
 
             // Convertimos de BeerModel a Beer explícitamente usando Select
-            IQueryable<Beer> beerQuery = query.Select(b => new Beer
+            IQueryable<BeerEntity> beerQuery = query.Select(b => new BeerEntity
             {
                 Id = b.nIdBeer,  // Mapeo de campos de BeerModel a Beer
                 Name = b.sNombre,
@@ -197,7 +197,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
             return beerQuery;
         }
 
-        public async Task UpdateAsync(Beer entity)
+        public async Task UpdateAsync(BeerEntity entity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
@@ -225,7 +225,7 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
             await _dbContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Beer>> GetAsync(Expression<Func<BeerModel, bool>> predicate)
+        public Task<IEnumerable<BeerEntity>> GetAsync(Expression<Func<BeerModel, bool>> predicate)
         {
             throw new NotImplementedException();
         }

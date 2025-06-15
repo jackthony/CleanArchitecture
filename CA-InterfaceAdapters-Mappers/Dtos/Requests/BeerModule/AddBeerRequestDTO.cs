@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CA_InterfaceAdapters_Mappers.Dtos.Requests.BeerModule
 {
-    public class BeerRequestDTO
+    public class AddBeerRequestDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
