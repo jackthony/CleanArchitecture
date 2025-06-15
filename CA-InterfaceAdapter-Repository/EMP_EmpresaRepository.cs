@@ -37,6 +37,7 @@ namespace CA_InterfaceAdapter_Repository
                 sIdDistrito = entity.sIdDistrito,
                 sDireccion = entity.sDireccion,
                 sComentario = entity.sComentario,
+                nNumeroMiembros = entity.nNumeroMiembros,
                 mIngresosUltimoAnio = entity.mIngresosUltimoAnio,
                 mUtilidadUltimoAnio = entity.mUtilidadUltimoAnio,
                 mConformacionCapitalSocial = entity.mConformacionCapitalSocial,
@@ -63,6 +64,7 @@ namespace CA_InterfaceAdapter_Repository
             empresaModel.sIdDistrito = entity.sIdDistrito;
             empresaModel.sDireccion = entity.sDireccion;
             empresaModel.sComentario = entity.sComentario;
+            empresaModel.nNumeroMiembros = entity.nNumeroMiembros;
             empresaModel.mIngresosUltimoAnio = entity.mIngresosUltimoAnio;
             empresaModel.mUtilidadUltimoAnio = entity.mUtilidadUltimoAnio;
             empresaModel.mConformacionCapitalSocial = entity.mConformacionCapitalSocial;
@@ -86,12 +88,11 @@ namespace CA_InterfaceAdapter_Repository
             {
                 return false;
             }
-
-            _dbContext.Empresas.Remove(empresaModel);
+            empresaModel.bActivo = !empresaModel.bActivo;
             var result = await _dbContext.SaveChangesAsync();
-
             return result > 0;
         }
+
         public async Task<ItemsPaginatorEntity<EMP_EmpresaModel>> GetAllAsyncPagination(int pageIndex, int pageSize, string? nameEnterprise)
         {
 
@@ -140,7 +141,8 @@ namespace CA_InterfaceAdapter_Repository
 
             var totalRows = await query.CountAsync();
             var lstItem = await query
-                .OrderBy(e => e.nIdEmpresa)
+                .OrderBy(e => e.bActivo ? 0 : 1) // Primero ordena por bActivo, donde 'true' será 0 y 'false' será 1
+                .ThenBy(e => e.nIdEmpresa) // Luego ordena por nIdEmpresa
                 .Skip((pageIndex-1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
@@ -204,16 +206,13 @@ namespace CA_InterfaceAdapter_Repository
             mIngresosUltimoAnio = e.mIngresosUltimoAnio,
             mUtilidadUltimoAnio = e.mUtilidadUltimoAnio,
             mConformacionCapitalSocial = e.mConformacionCapitalSocial,
+            nNumeroMiembros = e.nNumeroMiembros,
             bRegistradoMercadoValores = e.bRegistradoMercadoValores,
             bActivo = e.bActivo,
             dtFechaRegistro = e.dtFechaRegistro,
             nUsuarioRegistro = e.nUsuarioRegistro,
             dtFechaModificacion = e.dtFechaModificacion,
             nUsuarioModificacion = e.nUsuarioModificacion,
-
-            // Propiedad calculada: total de miembros/directores asociados
-            nNumeroMiembros = _dbContext.Director.Count(d => d.nIdEmpresa == e.nIdEmpresa),
-
             // Aquí puedes mapear también las propiedades [NotMapped] si tienes las tablas relacionadas
             // Ejemplo para sDescripcionRubro, sNombreMinisterio, sProvinciaDescripcion si deseas
         })

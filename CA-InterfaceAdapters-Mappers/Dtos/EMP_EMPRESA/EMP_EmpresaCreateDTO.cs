@@ -17,6 +17,7 @@ namespace CA_InterfaceAdapters_Mappers.Dtos.EMP_EMPRESA
         public string sIdDistrito { get; set; }
         public string sDireccion { get; set; }
         public string sComentario { get; set; }
+        public int nNumeroMiembros { get; set; }
         public decimal mIngresosUltimoAnio { get; set; }
         public decimal mUtilidadUltimoAnio { get; set; }
         public decimal mConformacionCapitalSocial { get; set; }

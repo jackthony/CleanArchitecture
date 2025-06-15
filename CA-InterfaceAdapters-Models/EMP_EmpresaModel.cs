@@ -25,7 +25,6 @@ namespace CA_InterfaceAdapters_Models
         public decimal mUtilidadUltimoAnio { get; set; }
         public decimal mConformacionCapitalSocial { get; set; }
 
-        [NotMapped]
         public int nNumeroMiembros { get; set; }
         public bool bRegistradoMercadoValores { get; set; }
         public bool bActivo { get; set; }

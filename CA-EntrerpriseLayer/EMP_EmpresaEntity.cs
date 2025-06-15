@@ -22,6 +22,7 @@ namespace CA_EntrerpriseLayer
         public decimal mIngresosUltimoAnio { get; set; }
         public decimal mUtilidadUltimoAnio { get; set; }
         public decimal mConformacionCapitalSocial { get; set; }
+        public int nNumeroMiembros { get; set; }
         public bool bRegistradoMercadoValores { get; set; }
         public bool bActivo { get; set; }
         public DateTime dtFechaRegistro { get; set; }

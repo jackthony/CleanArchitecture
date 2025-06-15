@@ -21,6 +21,7 @@ namespace CA_InterfaceAdapters_Mappers.EMP_EMPRESA
                 sIdDistrito=dto.sIdDistrito,
                 sDireccion=dto.sDireccion,
                 sComentario=dto.sComentario,
+                nNumeroMiembros = dto.nNumeroMiembros,
                 mIngresosUltimoAnio=dto.mIngresosUltimoAnio,
                 mUtilidadUltimoAnio=dto.mUtilidadUltimoAnio,
                 mConformacionCapitalSocial=dto.mConformacionCapitalSocial,
