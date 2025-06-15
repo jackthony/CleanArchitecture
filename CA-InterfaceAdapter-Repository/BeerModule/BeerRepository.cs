@@ -1,4 +1,5 @@
-﻿using CA_ApplicationLayer.Common.IRepositoriesFactory;
+﻿using System.Linq.Expressions;
+using CA_ApplicationLayer.Common.IRepositoriesFactory;
 using CA_EntrerpriseLayer.BeerModule;
 using CA_InterfaceAdapters_Data;
 using CA_InterfaceAdapters_Data.Contexts.EfCore;
@@ -8,10 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CA_InterfaceAdapter_Repository.BeerModule
 {
-    public class BeerRepository : IRepositoryAddAsync<Beer>, 
+    public class BeerRepository : IRepositoryAddAsync<Beer>,
         IRepositoryGetAllAsync<Beer>, IRepositoryGetByIdAsync<Beer>, IRepositoryGetByPagination<Beer>, IRepositoryUpdateAsync<Beer>,
-        IRepositoryDeleteAsync<Beer>
+        IRepositoryDeleteAsync<Beer>, IRepositorySearch<BeerModel, Beer>
     {
+
+
         private readonly AppDbContext _dbContext;
 
         public BeerRepository(AppDbContext context)
@@ -220,6 +223,11 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
             existingBeer.sUsuarioActualizacion = entity.userUpdated;
 
             await _dbContext.SaveChangesAsync();
+        }
+
+        public Task<IEnumerable<Beer>> GetAsync(Expression<Func<BeerModel, bool>> predicate)
+        {
+            throw new NotImplementedException();
         }
 
     }

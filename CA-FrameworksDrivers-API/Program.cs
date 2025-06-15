@@ -31,6 +31,7 @@ using CA_InterfaceAdapters_Adapters.PostModule.Dtos;
 using CA_InterfaceAdapters_Data.Contexts.EfCore;
 using CA_InterfaceAdapter_Repository.BeerModule;
 using CA_InterfaceAdapter_Repository.SaleModule;
+using CA_InterfaceAdapters_Models.BeerModule;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +56,17 @@ builder.Services.AddDbContext<AppDbContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); 
     }
 );
-builder.Services.AddScoped<IRepository<Beer>, BeerRepository>();
+builder.Services.AddScoped<IRepositoryAddAsync<Beer>, BeerRepository>();
+builder.Services.AddScoped<IRepositoryDeleteAsync<Beer>, BeerRepository>();
+builder.Services.AddScoped<IRepositoryGetAllAsync<Beer>, BeerRepository>();
+builder.Services.AddScoped<IRepositoryGetByIdAsync<Beer>, BeerRepository>();
+builder.Services.AddScoped<IRepositoryGetByPagination<Beer>, BeerRepository>();
+builder.Services.AddScoped<IRepositoryUpdateAsync<Beer>, BeerRepository>();
+builder.Services.AddScoped<IRepositorySearch<BeerModel, Beer>, BeerRepository>();
+
+
+
+
 builder.Services.AddScoped<IPresenterGetAll<Beer, BeerViewModel>, BeerPresenter>();
 builder.Services.AddScoped<IPresenterGetAll<Beer, BeerDetailViewModel>, BeerDetailPresenter>();
 builder.Services.AddScoped<IMapperDtoToOutput<BeerRequestDTO, Beer>, BeerMapper>();
