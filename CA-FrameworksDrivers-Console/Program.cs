@@ -4,7 +4,7 @@ using CA_ApplicationLayer.UseCases.BeersUseCases;
 using CA_EntrerpriseLayer.BeerModule;
 using CA_InterfaceAdapter_Repository.BeerModule;
 using CA_InterfaceAdapters_Data;
-using CA_InterfaceAdapters_Presenters.BeerModule.Beer;
+using CA_InterfaceAdapters_Data.Contexts.EfCore;
 using CA_InterfaceAdapters_Presenters.BeerModule.Presenters;
 using CA_InterfaceAdapters_Presenters.BeerModule.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +20,7 @@ IConfiguration configuration = builder.Build();
 var container = new ServiceCollection()
     .AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
-    .AddScoped<IRepository<Beer>, BeerRepository>()
+    .AddScoped<IRepositoryGetAllAsync<Beer>, BeerRepository>()
     .AddScoped<GetBeerUseCase<Beer, BeerViewModel>>()
     .AddScoped<IPresenterGetAll<Beer, BeerViewModel>, BeerPresenter>()
     .BuildServiceProvider();

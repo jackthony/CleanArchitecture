@@ -9,10 +9,10 @@ namespace CA_ApplicationLayer.UseCases.BeersUseCases
 {
     public class AddBeerUseCase<TDTO>
     {
-        private readonly IRepository<Beer> _beerRepository;
+        private readonly IRepositoryAddAsync<Beer> _beerRepository;
         private readonly IMapperDtoToOutput<TDTO, Beer> _mapper;
 
-        public AddBeerUseCase(IRepository<Beer> beerRepository, 
+        public AddBeerUseCase(IRepositoryAddAsync<Beer> beerRepository, 
             IMapperDtoToOutput<TDTO, Beer> mapper)
         {
             _beerRepository = beerRepository;

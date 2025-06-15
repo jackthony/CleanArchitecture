@@ -6,9 +6,9 @@ namespace CA_ApplicationLayer.UseCases.BeersUseCases
 {
     public class GetBeerUseCase<TEntity, TOutput>
     {
-        private readonly IRepository<TEntity> _beerRepository;
+        private readonly IRepositoryGetAllAsync<TEntity> _beerRepository;
         private readonly IPresenterGetAll<TEntity, TOutput> _presenter;
-        public GetBeerUseCase(IRepository<TEntity> beerRepository,
+        public GetBeerUseCase(IRepositoryGetAllAsync<TEntity> beerRepository,
             IPresenterGetAll<TEntity,TOutput> presenter)
         {
             _beerRepository = beerRepository;
