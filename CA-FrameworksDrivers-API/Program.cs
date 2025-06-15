@@ -1,24 +1,36 @@
-using CA_ApplicationLayer;
-using CA_EntrerpriseLayer;
 using CA_FrameworksDrivers_API.Middlewares;
-using CA_FrameworksDrivers_API.Validators;
-using CA_InterfaceAdapter_Repository;
 using CA_InterfaceAdapters_Data;
-using CA_InterfaceAdapters_Mappers;
-using CA_InterfaceAdapters_Mappers.Dtos.Requests;
-using CA_InterfaceAdapters_Presenters;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using CA_FrameworkDrivers_ExternalService;
-using CA_InterfaceAdapters_Adapters.Dtos;
-using CA_InterfaceAdapters_Adapters;
 using Microsoft.Extensions.DependencyInjection;
-using CA_ApplicationLayer.venta;
 using CA_EntrerpriseLayer.venta;
-using CA_InterfaceAdapters_Models;
 using Microsoft.AspNetCore.Mvc;
 using ROP.APIExtensions;
+using CA_ApplicationLayer.Common.IRepositoriesFactory;
+using CA_ApplicationLayer.Common.IMappersFactory;
+using CA_ApplicationLayer.Common.IExternalServices;
+using CA_ApplicationLayer.Common.IPresenterFactory;
+using CA_ApplicationLayer.UseCases.BeersUseCases;
+using CA_ApplicationLayer.UseCases.SalesUseCases;
+using CA_ApplicationLayer.UseCases.PostsUseCases;
+using CA_EntrerpriseLayer.BeerModule;
+using CA_EntrerpriseLayer.PostModule;
+using CA_FrameworksDrivers_API.Validators.BeerModule;
+using CA_InterfaceAdapters_Mappers.Mappers.BeerModule;
+using CA_InterfaceAdapters_Mappers.Mappers.SaleModule;
+using CA_InterfaceAdapters_Mappers.Dtos.Requests.BeerModule;
+using CA_InterfaceAdapters_Mappers.Dtos.Requests.SaleModule;
+using CA_InterfaceAdapters_Models.SaleModule;
+using CA_InterfaceAdapters_Presenters.BeerModule.BeerDetail;
+using CA_InterfaceAdapters_Presenters.BeerModule.Presenters;
+using CA_InterfaceAdapters_Presenters.BeerModule.ViewModels;
+using CA_InterfaceAdapters_Adapters.PostModule;
+using CA_FrameworkDrivers_ExternalService.PostModule;
+using CA_InterfaceAdapters_Adapters.PostModule.Dtos;
+using CA_InterfaceAdapters_Data.Contexts.EfCore;
+using CA_InterfaceAdapter_Repository.BeerModule;
+using CA_InterfaceAdapter_Repository.SaleModule;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,19 +55,19 @@ builder.Services.AddDbContext<AppDbContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); 
     }
 );
-builder.Services.AddScoped<IRepository<Beer>, Repository>();
-builder.Services.AddScoped<IPresenter<Beer, BeerViewModel>, BeerPresenter>();
-builder.Services.AddScoped<IPresenter<Beer, BeerDetailViewModel>, BeerDetailPresenter>();
-builder.Services.AddScoped<IMapper<BeerRequestDTO, Beer>, BeerMapper>();
-builder.Services.AddScoped<IExternalService<PostServiceDTO>, PostService>();
-builder.Services.AddScoped<IExternalServiceAdapter<Post>, PostExternalServiceAdapter>();
+builder.Services.AddScoped<IRepository<Beer>, BeerRepository>();
+builder.Services.AddScoped<IPresenterGetAll<Beer, BeerViewModel>, BeerPresenter>();
+builder.Services.AddScoped<IPresenterGetAll<Beer, BeerDetailViewModel>, BeerDetailPresenter>();
+builder.Services.AddScoped<IMapperDtoToOutput<BeerRequestDTO, Beer>, BeerMapper>();
+builder.Services.AddScoped<IEServiceGetContentAsync<PostServiceDTO>, PostService>();
+builder.Services.AddScoped<IESGetAllDataAsync<Post>, PostExternalServiceAdapter>();
 builder.Services.AddScoped<GetBeerUseCase<Beer, BeerViewModel>>();
 builder.Services.AddScoped<GetBeerUseCase<Beer, BeerDetailViewModel>>();
 builder.Services.AddScoped<AddBeerUseCase<BeerRequestDTO>>();
 builder.Services.AddScoped<GetPostUseCase>();
 //Generate Sale Use Case
 builder.Services.AddScoped<GenerateSaleUseCase<SaleRequestDTO>>();
-builder.Services.AddScoped<IMapper<SaleRequestDTO, Sale>, SaleMapper>();
+builder.Services.AddScoped<IMapperDtoToOutput<SaleRequestDTO, Sale>, SaleMapper>();
 builder.Services.AddScoped<IRepository<Sale>, SaleRepository>();
 
 //Get Sale Use Case
@@ -67,7 +79,7 @@ builder.Services.AddScoped<GetSaleSearchUseCase<SaleModel>>();
 
 
 
-builder.Services.AddHttpClient<IExternalService<PostServiceDTO>,PostService>(c =>
+builder.Services.AddHttpClient<IEServiceGetContentAsync<PostServiceDTO>,PostService>(c =>
 {
     c.BaseAddress = new Uri(builder.Configuration["BaseUrlPost"]);
 });

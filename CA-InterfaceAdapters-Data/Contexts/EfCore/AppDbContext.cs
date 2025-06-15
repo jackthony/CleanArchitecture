@@ -1,4 +1,5 @@
-﻿using CA_InterfaceAdapters_Models;
+﻿using CA_InterfaceAdapters_Models.BeerModule;
+using CA_InterfaceAdapters_Models.SaleModule;
 using Microsoft.EntityFrameworkCore;
 
 namespace CA_InterfaceAdapters_Data.Contexts.EfCore
