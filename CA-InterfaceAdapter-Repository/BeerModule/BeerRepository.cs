@@ -20,42 +20,48 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
         }
         public async Task<int> AddAsync(Beer beer)
         {
-            var existingBeer = await _dbContext.Beers
-                .FirstOrDefaultAsync(b => b.sNombre == beer.Name && b.sEstilo == beer.Style);
+            if (beer == null)
+                throw new ArgumentNullException(nameof(beer));
 
-            if (existingBeer != null)
+            var exists = await _dbContext.Beers
+                .AnyAsync(b => b.sNombre == beer.Name && b.sEstilo == beer.Style);
+
+            if (exists)
+                throw new InvalidOperationException("Beer already exists.");
+
+            var beerModel = new BeerModel
             {
-                // Si la cerveza ya existe, puedes actualizarla en lugar de agregarla.
-                existingBeer.dAlcohol = beer.Alcohol; // Actualiza cualquier campo necesario
-                await _dbContext.SaveChangesAsync();
-                return existingBeer.nIdBeer; // Retorna el ID del elemento existente
-            }
-            else
-            {
-                var beerModel = new BeerModel
-                {
-                    sNombre = beer.Name,
-                    sEstilo = beer.Style,
-                    dAlcohol = beer.Alcohol,
-                    dtFechaCrecion = DateTime.UtcNow, // Asigna la fecha de creación actual
-                    sUsuarioCreacion = "System", // Asigna un valor por defecto para el usuario de creación
-                    dtFechaActualizacion = null, // Inicialmente no hay actualización
-                    sUsuarioActualizacion = null // Inicialmente no hay usuario de actualización
-                };
-                await _dbContext.Beers.AddAsync(beerModel);
-                await _dbContext.SaveChangesAsync();
-                return beerModel.nIdBeer; // Retorna el ID del nuevo elemento agregado
-            }
+                sNombre = beer.Name,
+                sEstilo = beer.Style,
+                dAlcohol = beer.Alcohol,
+                dtFechaCrecion = DateTime.UtcNow,
+                sUsuarioCreacion = beer.userCreated,
+            };
+
+            await _dbContext.Beers.AddAsync(beerModel);
+            await _dbContext.SaveChangesAsync();
+
+            return beerModel.nIdBeer;
         }
 
         public async Task DeleteAsync(Beer entity)
         {
-            
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            var existingBeer = await _dbContext.Beers.FindAsync(entity.Id);
+
+            if (existingBeer == null)
+                throw new InvalidOperationException("Beer not found.");
+
+            _dbContext.Beers.Remove(existingBeer);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Beer>> GetAllAsync()
         {
             return await _dbContext.Beers
+                .AsNoTracking()
                 .Select(b => new Beer
                 {
                     Id = b.nIdBeer,
@@ -72,7 +78,13 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
 
         public async Task<Beer> GetByIdAsync(int id)
         {
-            var beerModel = await _dbContext.Beers.FindAsync(id);
+            var beerModel = await _dbContext.Beers
+                .AsNoTracking()
+                .FirstOrDefaultAsync(b => b.nIdBeer == id);
+
+            if (beerModel == null)
+                throw new InvalidOperationException("Beer not found.");
+
             return new Beer
             {
                 Id = beerModel.nIdBeer,
@@ -82,14 +94,20 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
                 DateCreate = beerModel.dtFechaCrecion,
                 userCreated = beerModel.sUsuarioCreacion,
                 DateUpdate = beerModel.dtFechaActualizacion ?? DateTime.UtcNow,
-                userUpdated = beerModel.sUsuarioActualizacion ?? "System" // Default value if null
+                userUpdated = beerModel.sUsuarioActualizacion ?? "System"
             };
         }
 
         public IQueryable<Beer> GetByPagination(int pageNumber, int pageSize, out int totalCount, Func<IQueryable<Beer>, IQueryable<Beer>>? orderBy = null, Func<IQueryable<Beer>, IQueryable<Beer>>? filter = null)
         {
+            if (pageNumber <= 0)
+                throw new ArgumentOutOfRangeException(nameof(pageNumber));
+
+            if (pageSize <= 0)
+                throw new ArgumentOutOfRangeException(nameof(pageSize));
+
             // Obtenemos la consulta base desde el DbSet<BeerModel>
-            IQueryable<BeerModel> query = _dbContext.Beers;  // DbSet<BeerModel>
+            IQueryable<BeerModel> query = _dbContext.Beers.AsNoTracking();
 
             // Si se proporciona un filtro, lo aplicamos
             if (filter != null)
@@ -178,23 +196,29 @@ namespace CA_InterfaceAdapter_Repository.BeerModule
 
         public async Task UpdateAsync(Beer entity)
         {
-            // Buscar la cerveza existente en la base de datos
-            var existingBeer = await _dbContext.Beers.FirstOrDefaultAsync(b => b.nIdBeer == entity.Id);
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
 
-            // Si la cerveza no existe, lanzar una excepción o manejarlo de la forma que se desee
+            var existingBeer = await _dbContext.Beers
+                .FirstOrDefaultAsync(b => b.nIdBeer == entity.Id);
+
             if (existingBeer == null)
-            {
-                throw new InvalidOperationException("Cerveza no encontrada.");
-            }
+                throw new InvalidOperationException("Beer not found.");
 
-            // Actualizar los campos de la cerveza existente con los nuevos valores
+            var duplicated = await _dbContext.Beers
+                .AnyAsync(b => b.nIdBeer != entity.Id &&
+                               b.sNombre == entity.Name &&
+                               b.sEstilo == entity.Style);
+
+            if (duplicated)
+                throw new InvalidOperationException("Another beer with same name and style already exists.");
+
             existingBeer.sNombre = entity.Name;
             existingBeer.sEstilo = entity.Style;
             existingBeer.dAlcohol = entity.Alcohol;
-            existingBeer.dtFechaActualizacion = DateTime.UtcNow; // Actualizamos la fecha de modificación
-            existingBeer.sUsuarioActualizacion = entity.userUpdated; // Asumimos que esta información proviene de la entidad
+            existingBeer.dtFechaActualizacion = DateTime.UtcNow;
+            existingBeer.sUsuarioActualizacion = entity.userUpdated;
 
-            // Guardar los cambios en la base de datos
             await _dbContext.SaveChangesAsync();
         }
 
