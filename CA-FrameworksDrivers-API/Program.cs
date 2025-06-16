@@ -32,6 +32,7 @@ using CA_InterfaceAdapter_Repository.BeerModule;
 using CA_InterfaceAdapter_Repository.SaleModule;
 using CA_InterfaceAdapters_Models.BeerModule;
 using CA_FrameworksDrivers_API.Validators.BeerModule.BeerValidators;
+using CA_FrameworksDrivers_API.ServicesCollection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,8 +65,8 @@ builder.Services.AddDbContext<AppDbContext>(
 //builder.Services.AddScoped<IRepositoryUpdateAsync<Beer>, BeerRepository>();
 //builder.Services.AddScoped<IRepositorySearch<BeerModel, Beer>, BeerRepository>();
 
-
-
+//Colecciones de inyeccion de dependencias por modulos
+builder.Services.ofBeerModule();
 
 
 builder.Services.AddScoped<IEServiceGetContentAsync<PostServiceDTO>, PostService>();

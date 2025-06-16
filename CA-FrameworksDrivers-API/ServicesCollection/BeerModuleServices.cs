@@ -12,7 +12,7 @@ namespace CA_FrameworksDrivers_API.ServicesCollection
 {
     public static class BeerModuleServices
     {
-        public static IServiceCollection ofBeerModule(this IServiceCollection services)
+        public static void ofBeerModule(this IServiceCollection services)
         {
             // Repositories
             services.AddScoped<CA_ApplicationLayer.Common.IRepositoriesFactory.IRepositoryAddAsync<CA_EntrerpriseLayer.BeerModule.BeerEntity>, CA_InterfaceAdapter_Repository.BeerModule.BeerRepository>();
@@ -39,8 +39,6 @@ namespace CA_FrameworksDrivers_API.ServicesCollection
             services.AddScoped<GetBeerUseCase<BeerEntity, BeerViewModel>>();
             services.AddScoped<GetBeerUseCase<BeerEntity, BeerDetailViewModel>>();
             services.AddScoped<AddBeerUseCase<AddBeerRequestDTO>>();
-
-            return services;
         }
     }
 }
