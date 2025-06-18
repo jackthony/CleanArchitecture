@@ -4,6 +4,10 @@ using CA_InterfaceAdapters_Mappers.Contracts;
 using CA_InterfaceAdapters_Models;
 using CA_EntrerpriseLayer;
 using CA_InterfaceAdapters_Mappers.Dtos.EMP_EMPRESA;
+using CA_ApplicationLayer.Nodos;
+using CA_ApplicationLayer.Exportaciones;
+using CA_InterfaceAdapters_Mappers.Dtos.EmpresaImportar;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CA_FrameworksDrivers_API.Endpoints
 {
@@ -49,6 +53,31 @@ namespace CA_FrameworksDrivers_API.Endpoints
             })
             .WithTags("EMP_Empresa")
             .WithName("GetByIdEmpEmpresas")
+            .WithOpenApi();
+
+            app.MapGet("EMP_Empresa/ExportarExcel", async (ExportarEmpresasDirectoresUseCase useCase) =>
+            {
+                return await useCase.GenerarExcelAsync();
+            })
+            .WithTags("EMP_Empresa")
+            .WithName("ExportarExcel")
+            .WithOpenApi();
+
+            app.MapGet("EMP_Empresa/ExportarPdf", async (ExportarEmpresasDirectoresPdfUseCase useCase) =>
+            {
+                return await useCase.GenerarPdfAsync();
+            })
+            .WithTags("EMP_Empresa")
+            .WithName("ExportarPdf")
+            .WithOpenApi();
+
+            app.MapPost("EMP_Empresa/ImportarExcel", async ([FromForm] ImportarEmpresaRequest request, ImportarEmpresasDirectoresUseCase<ImportarEmpresaRequest> useCase) =>
+            {
+                return await useCase.ImportarDesdeExcel(request);
+            })
+            .WithTags("EMP_Empresa")
+            .WithName("ImportarExcel")
+            .DisableAntiforgery()
             .WithOpenApi();
         }
     }

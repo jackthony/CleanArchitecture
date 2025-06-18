@@ -27,6 +27,9 @@ namespace CA_InterfaceAdapters_Data
         public DbSet<PermisoModel> Permisos { get; set; }
         public DbSet<RolPermisoModel> RolPermisos { get; set; }
         public DbSet<ArchivoProcesoModel> ArchivoProcesos { get; set; }
+        public DbSet<EmpresaExportarModel> EmpresasExportar { get; set; }
+        public DbSet<DirectorExportarModel> DirectoresExportar { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,6 +48,19 @@ namespace CA_InterfaceAdapters_Data
             modelBuilder.Entity<RolPermisoModel>().ToTable("ROL_PERMISO");
 
             modelBuilder.Entity<ArchivoProcesoModel>().ToTable("ARCHIVO_PROCESO");
+
+            modelBuilder.Entity<NodoModel>().HasNoKey();
+            modelBuilder.Entity<EmpresaExportarModel>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView(null);
+            });
+
+            modelBuilder.Entity<DirectorExportarModel>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView(null);
+            });
 
             modelBuilder.Entity<EMP_DietaModel>(entity =>
             {

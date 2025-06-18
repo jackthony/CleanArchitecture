@@ -31,6 +31,7 @@ namespace CA_InterfaceAdapters_Models
         public string? sCorreoTerciario { get; set; }
         public int nCargo { get; set; }
         public int nTipoDirector { get; set; }
+        public int nIdSector { get; set; }
         public string sProfesion { get; set; }
         public decimal mDieta { get; set; }
         public int nEspecialidad { get; set; }

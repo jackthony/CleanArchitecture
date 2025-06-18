@@ -1,11 +1,14 @@
 ﻿using CA_ApplicationLayer;
 using CA_ApplicationLayer.EMP_Empresa;
+using CA_ApplicationLayer.Exportaciones;
 using CA_EntrerpriseLayer;
 using CA_InterfaceAdapter_Repository;
 using CA_InterfaceAdapters_Mappers.Contracts;
 using CA_InterfaceAdapters_Mappers.Dtos.EMP_EMPRESA;
+using CA_InterfaceAdapters_Mappers.Dtos.EmpresaImportar;
 using CA_InterfaceAdapters_Mappers.Dtos.Requests;
 using CA_InterfaceAdapters_Mappers.EMP_EMPRESA;
+using CA_InterfaceAdapters_Mappers.EmpresaImportar;
 using CA_InterfaceAdapters_Models;
 using CA_InterfaceAdapters_Presenters;
 
@@ -18,11 +21,15 @@ namespace CA_FrameworksDrivers_API.Services
             services.AddScoped<IEmp_EmpresaRepository, EMP_EmpresaRepository>();
             services.AddScoped<IMapper<EMP_EmpresaCreateDTO, EMP_EmpresaEntity>, EMP_EmpresaCreateMapper>();
             services.AddScoped<IMapper<EMP_EmpresaUpdateDTO, EMP_EmpresaEntity>, EMP_EmpresaUpdateMapper>();
+            services.AddScoped<IMapper<ImportarEmpresaRequest, ImportarEmpresasEntity>, ImportarEmpresaCreateMapper>();
             services.AddScoped<GetEmpEmpresaUseCase<LstItemResponse<EMP_EmpresaModel>>>();
             services.AddScoped<AddEmpEmpresaUseCase<EMP_EmpresaCreateDTO,ItemResponse<int>>>();
             services.AddScoped<EditEmpEmpresaUseCase<EMP_EmpresaUpdateDTO, ItemResponse<bool>>>();
             services.AddScoped<DeleteEmpEmpresaUseCase<ItemResponse<bool>>>();
             services.AddScoped<GetByIdEmpEmpresaUseCase<ItemResponse<EMP_EmpresaModel>>>();
+            services.AddScoped<ExportarEmpresasDirectoresUseCase>();
+            services.AddScoped<ExportarEmpresasDirectoresPdfUseCase>();
+            services.AddScoped<ImportarEmpresasDirectoresUseCase<ImportarEmpresaRequest>>();
         }
     }
 }

@@ -3,6 +3,7 @@ using CA_ApplicationLayer.EMP_Empresa;
 using CA_EntrerpriseLayer;
 using CA_InterfaceAdapters_Data;
 using CA_InterfaceAdapters_Models;
+using DocumentFormat.OpenXml.InkML;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -184,6 +185,13 @@ namespace CA_InterfaceAdapter_Repository
                 PageSize = pageSize,
                 TotalRows = totalRows
             };
+        }
+
+        public async Task<IEnumerable<DirectorExportarModel>> GetAllDirectoresExportarAsync()
+        {
+            return await _dbContext.DirectoresExportar
+                .FromSqlRaw("EXEC sp_ListarDirectoresExportar")
+                .ToListAsync();
         }
     }
 }

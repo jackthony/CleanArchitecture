@@ -2,6 +2,7 @@
 using CA_ApplicationLayer.EMP_Empresa;
 using CA_EntrerpriseLayer;
 using CA_InterfaceAdapters_Data;
+using CA_InterfaceAdapters_Mappers.Dtos.ExportarEmpresas;
 using CA_InterfaceAdapters_Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CA_InterfaceAdapter_Repository
 {
@@ -219,6 +221,174 @@ namespace CA_InterfaceAdapter_Repository
         .FirstOrDefaultAsync();
 
             return empresa;
+        }
+
+        public async Task<IEnumerable<EmpresaExportarModel>> GetAllEmpresasExportarAsync()
+        {
+            var resultado = await _dbContext.EmpresasExportar
+                .FromSqlRaw("EXEC sp_ListarEmpresasExportar")
+                .ToListAsync();
+            return resultado;
+        }
+
+        public async Task<bool> UploadEmpresasAsync(List<ImportarEmpresaCreate> empresas, List<ImportarDirectorCreate> directores, int usuarioId)
+        {
+            var errores = new List<string> { };
+            var departamentos = await _dbContext.Departmentos.ToListAsync();
+            var provincias = await _dbContext.Provincias.ToListAsync();
+            var distritos = await _dbContext.Distritos.ToListAsync();
+            var rubros = await _dbContext.Constante
+                .Where(c => c.nConCodigo == 1024 && c.nConValor != 0)
+                .ToListAsync();
+            var proponentes = await _dbContext.Ministerio.ToListAsync();
+            var sectores = await _dbContext.Constante
+                .Where(c => c.nConCodigo == 14 && c.nConValor != 0)
+                .ToListAsync();
+
+            foreach (var empresa in empresas)
+            {
+                if (string.IsNullOrWhiteSpace(empresa.RazonSocial))
+                {
+                    errores.Add($"Razón social obligatoria para empresa con RUC: '{empresa.Ruc}'");
+                    continue;
+                }
+
+                var existe = await _dbContext.Empresas.AnyAsync(e =>
+                    e.sRuc == empresa.Ruc || e.sRazonSocial.ToLower() == empresa.RazonSocial.ToLower());
+
+                if (existe)
+                {
+                    errores.Add($"Empresa ya registrada: '{empresa.RazonSocial}' (RUC: {empresa.Ruc})");
+                    continue;
+                }
+
+                var duplicadosEnExcel = empresas
+                    .Count(e => e.Ruc == empresa.Ruc || e.RazonSocial.Equals(empresa.RazonSocial, StringComparison.OrdinalIgnoreCase));
+
+                if (duplicadosEnExcel > 1)
+                {
+                    errores.Add($"Empresa duplicada en archivo: '{empresa.RazonSocial}' (RUC: {empresa.Ruc})");
+                    continue;
+                }
+
+                var nombreDepartamento = empresa.Departamento.Trim();
+                var nombreProvincia = empresa.Provincia.Trim();
+                var nombreDistrito = empresa.Distrito.Trim();
+
+                var departamento = departamentos
+                    .FirstOrDefault(d => d.sName.Equals(nombreDepartamento, StringComparison.OrdinalIgnoreCase));
+
+                if (departamento == null)
+                {
+                    errores.Add($"Departamento no encontrado: '{nombreDepartamento}' para empresa '{empresa.RazonSocial}'");
+                    continue;
+                }
+
+                var provincia = provincias
+                    .FirstOrDefault(p =>
+                        p.sName.Equals(nombreProvincia, StringComparison.OrdinalIgnoreCase) &&
+                        p.sDepartmentCode == departamento.sCode);
+
+                if (provincia == null)
+                {
+                    errores.Add($"Provincia no encontrada o no pertenece al departamento: '{nombreProvincia}' → '{nombreDepartamento}'");
+                    continue;
+                }
+
+                var distrito = distritos
+                    .FirstOrDefault(dist =>
+                        dist.sName.Equals(nombreDistrito, StringComparison.OrdinalIgnoreCase) &&
+                        dist.sProvinceCode == provincia.sCode);
+
+                if (distrito == null)
+                {
+                    errores.Add($"Distrito no encontrado o no pertenece a la provincia: '{nombreDistrito}' → '{nombreProvincia}'");
+                    continue;
+                }
+
+                var departamentoId = departamento.sCode;
+                var provinciaId = provincia.sCode;
+                var distritoId = distrito.sCode;
+
+                var rubro = rubros.FirstOrDefault(r => r.sConDescripcion.Equals(empresa.Rubro, StringComparison.OrdinalIgnoreCase));
+                if (rubro == null)
+                {
+                    errores.Add($"Rubro inválido: '{empresa.Rubro}' en empresa '{empresa.RazonSocial}'");
+                    continue;
+                }
+
+                var proponente = proponentes.FirstOrDefault(p => p.sNombreMinisterio.Equals(empresa.Proponente, StringComparison.OrdinalIgnoreCase));
+                if (proponente == null)
+                {
+                    errores.Add($"Proponente inválido: '{empresa.Proponente}' en empresa '{empresa.RazonSocial}'");
+                    continue;
+                }
+
+                var registro = empresa.RegistroEnMercadoValores.Trim().ToLower();
+                if (registro != "sí" && registro != "no" && registro != "si")
+                {
+                    errores.Add($"Valor inválido en 'Registro en mercado de valores': '{empresa.RegistroEnMercadoValores}'");
+                    continue;
+                }
+                var registroBool = registro == "sí";
+
+                var activo = empresa.Activo.Trim().ToLower();
+                if (activo != "sí" && activo != "no" && activo != "si")
+                {
+                    errores.Add($"Valor inválido en 'Activo': '{empresa.Activo}'");
+                    continue;
+                }
+                var activoBool = activo == "sí";
+                decimal ingresos = string.IsNullOrEmpty(empresa.IngresosUltimoAnio)
+                    ? 0
+                    : decimal.TryParse(empresa.IngresosUltimoAnio, out var parsedValue1) ? parsedValue1 : 0;
+
+                decimal utilidades = string.IsNullOrEmpty(empresa.IngresosUltimoAnio)
+                    ? 0
+                    : decimal.TryParse(empresa.UtilidadUltimoAnio, out var parsedValue2) ? parsedValue2 : 0;
+
+                decimal capital = string.IsNullOrEmpty(empresa.IngresosUltimoAnio)
+                    ? 0
+                    : decimal.TryParse(empresa.UtilidadUltimoAnio, out var parsedValue3) ? parsedValue3 : 0;
+
+                int miembros = string.IsNullOrEmpty(empresa.IngresosUltimoAnio)
+                    ? 0
+                    : int.TryParse(empresa.NumeroMiembros, out var parsedValue4) ? parsedValue4 : 0;
+
+                var nuevaEmpresa = new EMP_EmpresaModel
+                {
+                    sRuc = empresa.Ruc,
+                    sRazonSocial = empresa.RazonSocial,
+                    nIdProponente = proponente.nIdMinisterio,
+                    nIdRubroNegocio = rubro.nConValor,
+                    sIdDepartamento = departamento.sCode,
+                    sIdProvincia = provincia.sCode,
+                    sIdDistrito = distrito.sCode,
+                    sDireccion = empresa.Direccion,
+                    sComentario = empresa.Comentario,
+                    mIngresosUltimoAnio = ingresos,
+                    mUtilidadUltimoAnio = utilidades,
+                    mConformacionCapitalSocial = capital,
+                    nNumeroMiembros = miembros,
+                    bRegistradoMercadoValores = registroBool,
+                    bActivo = activoBool,
+                    dtFechaRegistro = DateTime.Now,
+                    nUsuarioRegistro = usuarioId,
+                };
+
+                try
+                {
+                    _dbContext.Empresas.Add(nuevaEmpresa);
+                    await _dbContext.SaveChangesAsync();
+
+                    Console.WriteLine("Empresa guardada correctamente.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al guardar la empresa: {ex.Message}");
+                }
+            }
+            return true;
         }
     }
 }
