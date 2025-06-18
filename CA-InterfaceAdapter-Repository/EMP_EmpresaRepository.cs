@@ -244,6 +244,9 @@ namespace CA_InterfaceAdapter_Repository
             var sectores = await _dbContext.Constante
                 .Where(c => c.nConCodigo == 14 && c.nConValor != 0)
                 .ToListAsync();
+            var tiposDocumentos = await _dbContext.Constante
+                .Where(c => c.nConCodigo == 14 && c.nConValor != 0)
+                .ToListAsync();
 
             foreach (var empresa in empresas)
             {
@@ -388,6 +391,21 @@ namespace CA_InterfaceAdapter_Repository
                     Console.WriteLine($"Error al guardar la empresa: {ex.Message}");
                 }
             }
+
+            /*foreach (var director in directores)
+            {
+                var empresaExiste = await _dbContext.Empresas
+                    .AnyAsync(e => e.sRuc == director.Ruc);
+
+                if (!empresaExiste)
+                {
+                    errores.Add($"No se puede registrar al director '{director.Nombres} {director.Apellidos}' porque el RUC '{director.Ruc}' no está registrado.");
+                    continue;
+                }
+
+
+
+            }*/
             return true;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using CA_ApplicationLayer.Dir_Director;
 using CA_ApplicationLayer.EMP_Empresa;
+using CA_InterfaceAdapters_Models;
 using Microsoft.AspNetCore.Http;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
@@ -39,7 +40,7 @@ namespace CA_ApplicationLayer.Exportaciones
                     {
                         page.Size(PageSizes.A4.Landscape());
                         page.Margin(20);
-                        page.DefaultTextStyle(x => x.FontSize(9));
+                        page.DefaultTextStyle(x => x.FontSize(7));
                         page.Header().Text("Lista de Empresas").SemiBold().FontSize(14).AlignCenter();
 
                         page.Content().Table(table =>
@@ -108,6 +109,85 @@ namespace CA_ApplicationLayer.Exportaciones
                             }
                         });
                     });
+
+                    // Salto de página para la tabla de directores
+                    container.Page(page =>
+                    {
+                        page.Size(PageSizes.A4.Landscape());
+                        page.Margin(20);
+                        page.DefaultTextStyle(x => x.FontSize(6));
+
+                        page.Header().Text("Lista de Directores").SemiBold().FontSize(14).AlignCenter();
+
+                        page.Content().Table(table =>
+                        {
+                            table.ColumnsDefinition(columns =>
+                            {
+                                for (int i = 0; i < 24; i++)
+                                    columns.RelativeColumn(1);
+                            });
+
+                            table.Header(header =>
+                            {
+                                void H(string text) => header.Cell().Element(CellStyle).Text(text);
+
+                                H("RUC");
+                                H("Empresa");
+                                H("Tipo doc");
+                                H("Nro doc");
+                                H("Departamento");
+                                H("Provincia");
+                                H("Distrito");
+                                H("Dirección");
+                                H("Nombres");
+                                H("Apellidos");
+                                H("F. Nacimiento");
+                                H("Género");
+                                H("Teléfono");
+                                H("Correo");
+                                H("Cargo");
+                                H("Tipo director");
+                                H("Sector");
+                                H("Profesión");
+                                H("Dieta");
+                                H("Especialidad");
+                                H("Fec. Nombramiento");
+                                H("Fec. Designación");
+                                H("Fec. Renuncia");
+                                H("Comentarios");
+                            });
+
+                            foreach (var dir in listaDirectores)
+                            {
+                                void C(string text) => table.Cell().Element(CellStyle).Text(text ?? "");
+
+                                C(ObtenerRucPorIdEmpresa(dir.IdEmpresa, listaEmpresas));
+                                C(ObtenerRSPorIdEmpresa(dir.IdEmpresa, listaEmpresas));
+                                C(dir.TipoDocumento);
+                                C(dir.Documento);
+                                C(dir.Departamento);
+                                C(dir.Provincia);
+                                C(dir.Distrito);
+                                C(dir.Direccion);
+                                C(dir.Nombres);
+                                C(dir.Apellidos);
+                                C(dir.FechaNacimiento.ToString() ?? "");
+                                C(dir.Genero);
+                                C(dir.Telefono);
+                                C(dir.Correo);
+                                C(dir.Cargo);
+                                C(dir.TipoDirector);
+                                C(dir.Sector);
+                                C(dir.Profesion);
+                                C(dir.Dieta.ToString() ?? "");
+                                C(dir.Especialidad);
+                                C(dir.FechaNombramiento.ToString() ?? "");
+                                C(dir.FechaDesignacion.ToString() ?? "");
+                                C(dir.FechaRenuncia);
+                                C(dir.Comentarios);
+                            }
+                        });
+                    });
                 });
 
                 using var stream = new MemoryStream();
@@ -133,10 +213,21 @@ namespace CA_ApplicationLayer.Exportaciones
             }
         }
 
+        static string ObtenerRucPorIdEmpresa(int idEmpresa, List<EmpresaExportarModel> empresas)
+        {
+            return empresas.FirstOrDefault(e => e.Id == idEmpresa)?.Ruc ?? "";
+        }
+
+        static string ObtenerRSPorIdEmpresa(int idEmpresa, List<EmpresaExportarModel> empresas)
+        {
+            return empresas.FirstOrDefault(e => e.Id == idEmpresa)?.RazonSocial ?? "";
+        }
+
+
         static IContainer CellStyle(IContainer container)
         {
             return container
-                .Padding(2)
+                .Padding(0)
                 .Border(1)
                 .BorderColor(Colors.Grey.Lighten2)
                 .AlignMiddle();

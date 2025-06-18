@@ -78,36 +78,38 @@ namespace CA_ApplicationLayer.Exportaciones
 
                 var directores = new List<ImportarDirectorCreate>();
 
-                /*foreach (var row in worksheetDirectores.RowsUsed().Skip(1))
+                foreach (var row in worksheetDirectores.RowsUsed().Skip(1))
                 {
                     var director = new ImportarDirectorCreate
                     {
-                        Empresa = row.Cell(1).GetValue<string>().Trim(),
-                        TipoDocumento = row.Cell(2).GetValue<string>().Trim(),
-                        NumeroDocumento = row.Cell(3).GetValue<string>().Trim(),
-                        Departamento = row.Cell(4).GetValue<string>().Trim(),
-                        Provincia = row.Cell(5).GetValue<string>().Trim(),
-                        Distrito = row.Cell(6).GetValue<string>().Trim(),
-                        Direccion = row.Cell(7).GetValue<string>().Trim(),
-                        Nombres = row.Cell(8).GetValue<string>().Trim(),
-                        Apellidos = row.Cell(9).GetValue<string>().Trim(),
-                        FechaNacimiento = row.Cell(10).Value.ToString().Trim(),
-                        Genero = row.Cell(11).GetValue<string>().Trim(),
-                        Telefono = row.Cell(12).GetValue<string>().Trim(),
-                        Correo = row.Cell(13).GetValue<string>().Trim(),
-                        Cargo = row.Cell(14).GetValue<string>().Trim(),
-                        TipoDirector = row.Cell(15).GetValue<string>().Trim(),
-                        Profesion = row.Cell(16).GetValue<string>().Trim(),
-                        Dieta = row.Cell(17).Value.ToString().Trim(),
-                        Especialidad = row.Cell(18).GetValue<string>().Trim(),
-                        FechaNombramiento = row.Cell(19).Value.ToString().Trim(),
-                        FechaDesignacion = row.Cell(20).Value.ToString().Trim(),
-                        FechaRenuncia = row.Cell(21).Value.ToString().Trim(),
-                        Comentarios = row.Cell(22).GetValue<string>().Trim()
+                        Ruc = GetMergedValue(row.Cell(1)),
+                        Empresa = GetMergedValue(row.Cell(2)),
+                        TipoDocumento = row.Cell(3).GetValue<string>().Trim(),
+                        NumeroDocumento = row.Cell(4).GetValue<string>().Trim(),
+                        Departamento = row.Cell(5).GetValue<string>().Trim(),
+                        Provincia = row.Cell(6).GetValue<string>().Trim(),
+                        Distrito = row.Cell(7).GetValue<string>().Trim(),
+                        Direccion = row.Cell(8).GetValue<string>().Trim(),
+                        Nombres = row.Cell(9).GetValue<string>().Trim(),
+                        Apellidos = row.Cell(10).GetValue<string>().Trim(),
+                        FechaNacimiento = row.Cell(11).Value.ToString().Trim(),
+                        Genero = row.Cell(12).GetValue<string>().Trim(),
+                        Telefono = row.Cell(13).GetValue<string>().Trim(),
+                        Correo = row.Cell(14).GetValue<string>().Trim(),
+                        Cargo = row.Cell(15).GetValue<string>().Trim(),
+                        TipoDirector = row.Cell(16).GetValue<string>().Trim(),
+                        Sector = row.Cell(17).GetValue<string>().Trim(),
+                        Profesion = row.Cell(18).GetValue<string>().Trim(),
+                        Dieta = row.Cell(19).Value.ToString().Trim(),
+                        Especialidad = row.Cell(20).GetValue<string>().Trim(),
+                        FechaNombramiento = row.Cell(21).Value.ToString().Trim(),
+                        FechaDesignacion = row.Cell(22).Value.ToString().Trim(),
+                        FechaRenuncia = row.Cell(23).Value.ToString().Trim(),
+                        Comentarios = row.Cell(24).GetValue<string>().Trim()
                     };
 
                     directores.Add(director);
-                }*/
+                }
 
                 await _empEmpresaRepository.UploadEmpresasAsync(empresas, directores, convert.UsuarioId);
 
@@ -117,6 +119,15 @@ namespace CA_ApplicationLayer.Exportaciones
             {
                 throw;
             }
+        }
+
+        string GetMergedValue(IXLCell cell)
+        {
+            return cell.Worksheet.MergedRanges
+                .FirstOrDefault(r => r.Contains(cell))?
+                .FirstCell()
+                .GetValue<string>()
+                .Trim() ?? cell.GetValue<string>().Trim();
         }
     }
 }
